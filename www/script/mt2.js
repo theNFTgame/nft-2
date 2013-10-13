@@ -296,10 +296,10 @@ function fntClimer(){
       key: fntA.key,
       act: "pcenter"
   });
-  
+
   socket.on("get_response", function (b) {
     var combine = b.key + "_" + b.act;
-    // console.log(combine);
+    console.log(combine);
     switch (combine) {
       // when open m.page，call enter event，then show the game
       case fntA.key + "_enter":
@@ -651,15 +651,8 @@ function shakeEventDidOccur() {
 
 $(document).ready(function(){
 	
-	 var pageUrl = 'http://www.quyeba.com/event/explorerchallenge/m.html'; 
- //  var pageUrl = window.location.href;
-	// pageUrl=pageUrl.replace(/index.html#\/run/g,"m.html");
- //  pageUrl=pageUrl.replace(/index.html#run/g,"m.html");
- //  pageUrl=pageUrl.replace(/index.html#\/index/g,"m.html");
- //  pageUrl=pageUrl.replace(/index.html#index/g,"m.html");
- //  pageUrl=pageUrl.replace(/index.html#\/reg/g,"m.html");
- //  pageUrl=pageUrl.replace(/index.html#reg/g,"m.html");
- //  pageUrl=pageUrl.replace(/index.html/g,"m.html");
+	var pageUrl = 'http://www.quyeba.com/event/explorerchallenge/m_c.html'; 
+
 	//fntA.gameLevel = 1;
 	fntA.shakerecord = 0;  
   fntA.gameOn = false ;
