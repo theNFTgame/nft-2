@@ -20,7 +20,8 @@ var AppRouter = Backbone.Router.extend({
       fntA.playername = echoName;
       //router.navigate('run');
       showSubFrame('runbox','qrcodebox');
-      fntRun();
+      // fntRun();
+      fntClimer();
       $('.iframbox iframe').attr('src','');
       _smq.push(['pageview', '/qrcode', '扫描二维码']);
     }else{
@@ -67,7 +68,8 @@ var AppRouter = Backbone.Router.extend({
         _smq.push(['pageview', '/replay', '再战一次']);
       // }
       showSubFrame('runbox','qrcodebox');
-      fntRun();
+      // fntRun();
+      fntClimer();
       $('.iframbox').html('');
       //$('.iframbox iframe').attr('src','');
       _smq.push(['pageview', '/run', '跑步']);
@@ -223,7 +225,8 @@ function postLogin(){
       $('.loginbox .errormsg').show();
     }
   });
-  fntRun();
+  // fntRun();
+  fntClimer();
 }
 function postRegister(){
   var userName  = $('#regumail').val()
@@ -271,7 +274,8 @@ function postRegister(){
       //  console.log('Ajax error!')
     }
   });
-  fntRun();
+  // fntRun();
+  fntClimer();
 }
 function funMapload(){
 	fntA.imgArr = [
@@ -279,6 +283,59 @@ function funMapload(){
   fntA.pathArr = [
     'img/map/map01.gif'];
 }
+
+//climer game
+function fntClimer(){
+  console.log('fntClimer');
+  // NodeJS Server
+  var nodejs_server = "222.73.241.60:8082";
+  // connect
+  var socket = io.connect("http://" + nodejs_server);
+
+  socket.emit("send", {
+      key: fntA.key,
+      act: "pcenter"
+  });
+  
+  socket.on("get_response", function (b) {
+    var combine = b.key + "_" + b.act;
+    // console.log(combine);
+    switch (combine) {
+      // when open m.page，call enter event，then show the game
+      case fntA.key + "_enter":
+        setTimeout(function () {
+          if(fntA.allmoveB==0){
+            showSubFrame('runbox','rundivbox');
+            
+            if(!fntA.gameOn){
+              
+              fntA.gameOn = true;
+              countdownNewTime(9);
+            }
+          }
+        }, 500);
+        break;
+      // shake event
+      case fntA.key + "_changebg":
+        //console.log('fntA.gameOn:' + fntA.gameOn +'fntA.shakerecord:' + fntA.shakerecord +'fntA.gameFinish:' + fntA.gameFinish );
+
+        // if(fntA.gameOn && fntA.shakerecord === 1 && !fntA.gameFinish){
+
+        //   //console.log('call 1 countdown');
+        //   countdownNewTime(6);
+        // }
+        shakeEventDidOccur();
+        if(fntA.shakeEng<3 && fntA.moveA <1){
+          fntA.moveA = 2;
+        }
+        if(fntA.shakeEng<30){
+          fntA.shakeEng = fntA.shakeEng + 6 ;
+        }
+
+        break;
+    }
+  });
+}//climer game
 
 //main run
 function fntRun(){
