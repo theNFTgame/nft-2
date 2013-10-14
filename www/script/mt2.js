@@ -291,7 +291,35 @@ function fntClimer(){
   var nodejs_server = "222.73.241.60:8082";
   // connect
   var socket = io.connect("http://" + nodejs_server);
-
+  function countdownNewTime(secs) {
+    //countdown
+    secs = Number(secs);
+    for (var i = secs; i >= 0; i--) {
+      (function(index) {
+        setTimeout(function(){
+        doUpdateTime(index);
+      }, (secs - index) * 1000);
+    })(i);
+    }
+  }
+  function doUpdateTime(num) {
+    //console.log('now countdown number is :' + num);
+    if(num == 4 || num == 5 || num == 6 ){
+      showSubMask('gamemask','howplay');
+      $('.gamemask .countdown').html('');
+    }
+    if(num == 1 || num == 2 || num == 3 ){
+      showSubMask('gamemask','connection');
+    }
+    if(num === 0) {
+      if(!fntA.startime){
+        showSubMask('gamemask');
+        $('.gamemask .countdown').html();
+        clearTimeout();
+        start();
+      }
+    }
+  }
   socket.emit("send", {
       key: fntA.key,
       act: "pcenter"
@@ -303,16 +331,15 @@ function fntClimer(){
     switch (combine) {
       // when open m.page，call enter event，then show the game
       case fntA.key + "_enter":
+        console.log('enter');
         setTimeout(function () {
-          if(fntA.allmoveB==0){
+
+          if(!fntA.gameOn){
             showSubFrame('runbox','rundivbox');
-            
-            if(!fntA.gameOn){
-              
-              fntA.gameOn = true;
-              countdownNewTime(9);
-            }
+            fntA.gameOn = true;
+            countdownNewTime(4);
           }
+
         }, 500);
         break;
       // shake event
