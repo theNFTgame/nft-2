@@ -5,7 +5,7 @@
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
   <title> - jsFiddle demo by vitrum</title>
   
-  <script type='text/javascript' src='//code.jquery.com/jquery-2.0.2.js'></script>
+  <script type='text/javascript' src='http://code.jquery.com/jquery-2.0.2.js'></script>
   
   
   
@@ -80,27 +80,16 @@ p {margin:0;}
 $(window).load(function(){
   var fntA = new Object();
 
-  window.requestAFrame = (function () {
-    return window.requestAnimationFrame ||
-    window.webkitRequestAnimationFrame ||
-    window.mozRequestAnimationFrame ||
-    window.oRequestAnimationFrame ||
-    // if all else fails, use setTimeout
-    function (callback) {
-      return window.setTimeout(callback, 1000 / 60); // shoot for 60 fps
-    };
-  })();
-
-  // handle multiple browsers for cancelAnimationFrame()
-  window.cancelAFrame = (function () {
-    return window.cancelAnimationFrame ||
-    window.webkitCancelAnimationFrame ||
-    window.mozCancelAnimationFrame ||
-    window.oCancelAnimationFrame ||
-    function (id) {
-      window.clearTimeout(id);
-    };
-  })();
+var requestAnimationFrame = window.requestAnimationFrame || 
+                            window.mozRequestAnimationFrame || 
+                            window.webkitRequestAnimationFrame || 
+                            window.msRequestAnimationFrame;
+                             
+// hopefully get a valid cancelAnimationFrame function!                     
+var cancelRAF = window.cancelAnimationFrame || 
+                window.mozCancelAnimationFrame || 
+                window.webkitCancelAnimationFrame || 
+                window.msCancelAnimationFrame;
 
   function drawRectangle(myRectangle, context) {
     context.beginPath();
@@ -111,7 +100,7 @@ $(window).load(function(){
     context.strokeStyle = 'green';
     context.stroke();
   }
-      function animate(myRectangle, canvas, context, startTime) {
+      function animate() {
         // update
         var time = (new Date()).getTime() - startTime;
         var amplitude = 160;
@@ -130,9 +119,10 @@ $(window).load(function(){
         drawRectangle(myRectangle, context);
 
         // request new frame
-        requestAnimFrame(function() {
-          animate(myRectangle, canvas, context, startTime);
-        });
+        // requestAFrame(function() {
+        //   animate(myRectangle, canvas, context, startTime);
+        // });
+         fntA.requestId = window.requestAnimationFrame(animate);
       }
       var canvas = document.getElementById('myCanvas');
       var context = canvas.getContext('2d');
@@ -146,16 +136,30 @@ $(window).load(function(){
       };
 
       drawRectangle(myRectangle, context);
-
+      var startTime = (new Date()).getTime();
+      animate(myRectangle, canvas, context, startTime)
       // wait one second before starting animation
 
-
+function stopAnimation(e) {
+    // use the requestID to cancel the requestAnimationFrame call
+    cancelRAF(fntA.requestId);
+}
+function pauseAnimation(e) {
+    // use the requestID to cancel the requestAnimationFrame call
+    animate();
+}
 
 $(".get").on("click", function(){
     $("body").append('<p>' + fntA.x);
   });
 $(".clean").on("click", function(){
     $("p").remove();
+  });
+$(".stop").on("click", function(){
+    stopAnimation();
+  });
+$(".pause").on("click", function(){
+    pauseAnimation();
   });
 });//]]>  
 
@@ -169,7 +173,7 @@ $(".clean").on("click", function(){
 </div>
 <a class="btn get" href="#">get value</a>
 <a class="btn clean" href="#">clean</a>
-<a class="btn pash" href="#">pash</a>
+<a class="btn pause" href="#">Pause</a>
 <a class="btn stop" href="#">stop</a>
 </body>
 
