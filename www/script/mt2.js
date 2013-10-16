@@ -277,10 +277,16 @@ $(document).ready(function(){
   //climer game
   function fntClimer(){
     console.log('fntClimer');
+
     fntA.ClimerOn = false;
+    fntA.image0 = new Image();
+    fntA.image0.src = 'img/map/map01.jpg';
     fntA.gameLevel = 1;
     var canvas = document.getElementById('myCanvas');
     var context = canvas.getContext('2d');
+    var mapcanvas =  document.getElementById('mapCanvas');
+    var ctx0 = mapcanvas.getContext('2d');
+    ctx0.drawImage(fntA.image0,0,0,320,456);
     var myRectangle = {
       x: 20,
       y: 0,
@@ -336,8 +342,10 @@ $(document).ready(function(){
       if(num >0 ){
         console.log('ClimerTime:' + num + '\n');
         console.log(fntA.ClimerOn);
-        $('.light span').removeClass().addClass('lite'+num);
-        $('.gamenote span').removeClass().addClass('note'+num);
+        if(fntA.ClimerOn){
+          $('.light span').removeClass().addClass('lite'+num);
+          $('.gamenote span').removeClass().addClass('note'+num);
+        }
       }
       if(num === 0) {
         if(!fntA.startime){
