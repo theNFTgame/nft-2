@@ -77,8 +77,20 @@ ul{
 .header .playrecord { font-size: 140%; color: red; display: block; line-height: 32px;}
 .runningbox .gamenote {width: 360px; height: 60px; position: absolute; overflow: hidden; top: 167px; left: 15px;}
   .runningbox .gamenote span { width: 360px; height: 60px; background: url(../img/note_climber.png) no-repeat; display: block;}
+    .runningbox .gamenote span.note1 { background: black}
+    .runningbox .gamenote span.note2 { background: red}
+    .runningbox .gamenote span.note3 { background: white}
+    .runningbox .gamenote span.note4 { background: yellow}
+    .runningbox .gamenote span.note5 { background: green}
+    .runningbox .gamenote span.note6 { background: blue}
 .runningbox .light {width: 360px; height: 61px; position: absolute; overflow: hidden;top: 249px; left: 15px;}
   .runningbox .light span { width: 360px; height: 61px; background: url(../img/light_climber.png) no-repeat; display: block;}
+    .runningbox .light span.lite1 { background: black}
+    .runningbox .light span.lite2 { background: red}
+    .runningbox .light span.lite3 { background: white}
+    .runningbox .light span.lite4 { background: yellow}
+    .runningbox .light span.lite5 { background: green}
+    .runningbox .light span.lite6 { background: blue}
 .runningbox .power {width: 360px; height: 66px; position: absolute; overflow: hidden; top: 377px; left: 16px; background: url(../img/bg_power.png) no-repeat; padding: 33px 0 0 4px;}
   .power canvas { width: 340px; height:29px; background: url(../img/bg_power_canvas.png) no-repeat; }
 
