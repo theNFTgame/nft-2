@@ -278,6 +278,16 @@ $(document).ready(function(){
   function fntClimer(){
     console.log('fntClimer');
     fntA.ClimerOn = false;
+    fntA.gameLevel = 1;
+    var canvas = document.getElementById('myCanvas');
+    var context = canvas.getContext('2d');
+    var myRectangle = {
+      x: 20,
+      y: 0,
+      width: 20,
+      height: 50,
+      borderWidth: 0
+    };
 
     function countdownNewTime(secs) {
       //countdown
@@ -365,6 +375,12 @@ $(document).ready(function(){
         case fntA.key + "_changebg":
           if(fntA.ClimerOn){
             console.log(fntA.x);
+            // fntA.gameLevel 
+            if(fntA.x< (canvas.width - (canvas.width/10)*(fntA.gameLevel-1) )){
+              console.log('You win this step!');
+            }else{
+              console.log('You lost!');
+            }
           }else{
             console.log('Your time is out.')
           }
@@ -401,16 +417,7 @@ $(document).ready(function(){
       drawRectangle(myRectangle, context);
       fntA.requestId = window.requestAnimationFrame(animate);
     }
-    var canvas = document.getElementById('myCanvas');
-    var context = canvas.getContext('2d');
 
-    var myRectangle = {
-      x: 20,
-      y: 0,
-      width: 20,
-      height: 50,
-      borderWidth: 0
-    };
 
     drawRectangle(myRectangle, context);
     var startTime = (new Date()).getTime();
@@ -751,18 +758,18 @@ $(document).ready(function(){
     //put your own code here etc.
     fntA.shakerecord = fntA.shakerecord + 1;
   }
-	var pageUrl = 'http://www.quyeba.com/event/explorerchallenge/m_c.html'; 
+  var pageUrl = 'http://www.quyeba.com/event/explorerchallenge/m_c.html'; 
 
-	//fntA.gameLevel = 1;
-	fntA.shakerecord = 0;  
+  //fntA.gameLevel = 1;
+  fntA.shakerecord = 0;  
   fntA.gameOn = false ;
   fntA.gameOn = false ;
 
   var loadedImages = 0;
-	//run
-	
+  //run
+  
   var newUrl = pageUrl +"?key=" +fntA.key;
-	$("#qrcode").append("<img src='http://chart.apis.google.com/chart?chs=320x320&cht=qr&chld=H|2&chl="+ newUrl + "&choe=UTF-8' />");
+  $("#qrcode").append("<img src='http://chart.apis.google.com/chart?chs=320x320&cht=qr&chld=H|2&chl="+ newUrl + "&choe=UTF-8' />");
   console.log( newUrl);
   //postRegiste
   $(".btn_register").on("click", function(){
