@@ -1,5 +1,6 @@
+var fntA = new Object();
 $(document).ready(function(){
-  var fntA = new Object();
+
   fntA.key = NewGuid();
   var AppRouter = Backbone.Router.extend({  
     routes : {  
@@ -276,10 +277,8 @@ $(document).ready(function(){
   //climer game
   function fntClimer(){
     console.log('fntClimer');
-    // NodeJS Server
-    var nodejs_server = "222.73.241.60:8082";
-    // connect
-    var socket = io.connect("http://" + nodejs_server);
+    fntA.ClimerOn = false;
+
     function countdownNewTime(secs) {
       //countdown
       secs = Number(secs);
@@ -305,10 +304,43 @@ $(document).ready(function(){
           showSubMask('gamemask');
           $('.gamemask .countdown').html();
           clearTimeout();
-          start();
+          countdownClimerTime(6);
+          animate();
+          fntA.ClimerOn = true;
         }
       }
     }
+    function countdownClimerTime(secs) {
+      //countdown
+      secs = Number(secs);
+      for (var i = secs; i >= 0; i--) {
+        (function(index) {
+          setTimeout(function(){
+          doUpdateClimerTime(index);
+        }, (secs - index) * 1000);
+      })(i);
+      }
+    }
+    function doUpdateClimerTime(num) {
+      //console.log('now countdown number is :' + num);
+      if(num >0 ){
+        console.log('ClimerTime:' + num + '\n');
+        console.log(fntA.ClimerOn);
+      }
+      if(num === 0) {
+        if(!fntA.startime){
+          console.log('ClimerTime:' + num + '\n');
+          clearTimeout();
+          stopAnimation();
+          fntA.ClimerOn = false;
+          console.log(fntA.ClimerOn);
+        }
+      }
+    }
+    // NodeJS Server
+    var nodejs_server = "222.73.241.60:8082";
+    // connect
+    var socket = io.connect("http://" + nodejs_server);
     socket.emit("send", {
         key: fntA.key,
         act: "pcenter"
@@ -331,6 +363,11 @@ $(document).ready(function(){
           break;
         // shake event
         case fntA.key + "_changebg":
+          if(fntA.ClimerOn){
+            console.log(fntA.x);
+          }else{
+            console.log('Your time is out.')
+          }
           stopAnimation();
           break;
       }
@@ -351,7 +388,7 @@ $(document).ready(function(){
       var amplitude = 160;
 
       // in ms
-      var period = 2000;
+      var period = 1000;
       var centerX = canvas.width / 2 - myRectangle.width / 2;
       var nextX = amplitude * Math.sin(time * 2 * Math.PI / period) + centerX;
       myRectangle.x = nextX;
