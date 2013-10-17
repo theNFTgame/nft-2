@@ -1,4 +1,35 @@
 var fntA = new Object();
+  function showFrame(framename) {
+    if(!framename){ framename = 'homepage'}
+      $('.frame').hide();
+    //if(framename !=='homepage' ){ };
+    $('.' + framename ).show();
+    setTimeout(function(){window.scrollTo(0, 0);}, 0);
+  }
+  function showSubFrame(framename,subframename) {
+    if(!framename && !subframename) {return false;};
+    showFrame(framename);
+    $('.' + framename + ' .subframe').hide();
+    $('.' + framename + ' .' + subframename).show();
+  }
+  function showMask(framename) {
+    if(!framename){ $('.maskbox').hide();}
+      $('.maskbox').hide();
+    //if(framename !=='homepage' ){ };
+    $('.' + framename ).show();
+  }
+  function showSubMask(framename,subframename) {
+    if(!subframename) {
+      $('.' + framename + ' .submask').hide();
+      $('.maskbox').hide();
+    }else{
+      showMask(framename);
+      $('.' + framename + ' .submask').hide();
+      $('.' + framename + ' .' + subframename).show();
+    }
+  }
+
+
 $(document).ready(function(){
 
   fntA.key = NewGuid();
@@ -86,35 +117,7 @@ $(document).ready(function(){
   Backbone.history.start(); 
 
 
-  function showFrame(framename) {
-    if(!framename){ framename = 'homepage'}
-      $('.frame').hide();
-    //if(framename !=='homepage' ){ };
-    $('.' + framename ).show();
-    setTimeout(function(){window.scrollTo(0, 0);}, 0);
-  }
-  function showSubFrame(framename,subframename) {
-    if(!framename && !subframename) {return false;};
-    showFrame(framename);
-    $('.' + framename + ' .subframe').hide();
-    $('.' + framename + ' .' + subframename).show();
-  }
-  function showMask(framename) {
-    if(!framename){ $('.maskbox').hide();}
-      $('.maskbox').hide();
-    //if(framename !=='homepage' ){ };
-    $('.' + framename ).show();
-  }
-  function showSubMask(framename,subframename) {
-    if(!subframename) {
-      $('.' + framename + ' .submask').hide();
-      $('.maskbox').hide();
-    }else{
-      showMask(framename);
-      $('.' + framename + ' .submask').hide();
-      $('.' + framename + ' .' + subframename).show();
-    }
-  }
+
   var requestAnimationFrame = window.requestAnimationFrame || 
                               window.mozRequestAnimationFrame || 
                               window.webkitRequestAnimationFrame || 
@@ -286,7 +289,8 @@ $(document).ready(function(){
     var context = canvas.getContext('2d');
     var mapcanvas =  document.getElementById('mapCanvas');
     var ctx0 = mapcanvas.getContext('2d');
-    ctx0.drawImage(fntA.image0,0,0,320,456);
+
+    
     var myRectangle = {
       x: 20,
       y: 0,
@@ -308,22 +312,16 @@ $(document).ready(function(){
     }
     function doUpdateTime(num) {
       //console.log('now countdown number is :' + num);
-      if(num == 4 || num == 5 || num == 6 ){
+      if( num == 5 || num >= 6 ){
         showSubMask('gamemask','howplay');
         $('.gamemask .countdown').html('');
       }
-      if(num == 1 || num == 2 || num == 3 ){
-        showSubMask('gamemask','connection');
+      if( num == 4 || num == 1 || num == 2 || num == 3 ){
+        // showSubMask('gamemask','connection');
+        showSubMask('gamemask','howplay');
       }
       if(num === 0) {
-        if(!fntA.startime){
-          showSubMask('gamemask');
-          $('.gamemask .countdown').html();
-          clearTimeout();
-          countdownClimerTime(6);
-          animate();
-          fntA.ClimerOn = true;
-        }
+        showSubMask('gamemask','connection');
       }
     }
     function countdownClimerTime(secs) {
@@ -377,7 +375,8 @@ $(document).ready(function(){
             if(!fntA.gameOn){
               showSubFrame('runbox','rundivbox');
               fntA.gameOn = true;
-              countdownNewTime(4);
+              ctx0.drawImage(fntA.image0,-20,-446,360,912);
+              countdownNewTime(8);
             }
           }, 500);
           break;
@@ -456,6 +455,16 @@ $(document).ready(function(){
         pauseAnimation();
         $("body").append('<p>' + fntA.x);
       });
+    $(".connection").on("click", function(){
+      if(!fntA.startime){
+        showSubMask('gamemask');
+        $('.gamemask .countdown').html();
+        clearTimeout();
+        countdownClimerTime(6);
+        animate();
+        fntA.ClimerOn = true;
+      }
+    });
 
   }//climer game
 
@@ -482,8 +491,9 @@ $(document).ready(function(){
   $(".btn_login").on("click", function(){
     postLogin();
   });
-  
-
+  $(".btn_login").on("click", function(){
+    postLogin();
+  });
 
 });
 

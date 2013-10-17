@@ -98,6 +98,11 @@ ul{
 /**/
 .runningbox .map { width: 320px; height: 474px; position: absolute; top:26px; right: 30px; }
 .runningbox .map canvas { display: block; float: left;}
+
+#mapCanvas { background: url(img/map/map01.jpg) center bottom no-repeat;}
+.theclimer {}
+
+
 /**/
 .runningbox .player { width: 68px; height: 133px; background: url('../img/player/player_a.png') 0px 0px no-repeat; position: absolute; display: block; top: 320px; left:148px; }
 .runningbox .playerb { left:564px; background: url('../img/player/player_b.png') 0px 0px no-repeat;}
@@ -107,7 +112,11 @@ ul{
 .maskbox { display: none; }
 .gamemask { width: 756px; height: 525px; position: absolute; top: 44px; left: 78px; background: url(../img/bg_gamemask.png); }
 .submask { display: none; width: 370px; height: 260px; margin: 100px auto 0; background: #fff; opacity: 1; }
-.gamemask .connection { background: url(../img/bg_howplay.jpg) no-repeat;}
+.gamemask .connection { background: url(../img/mask_climber_01.png) center center no-repeat;width: 730px;
+    height: 325px;
+    margin: 100px auto;
+    cursor: pointer;
+}
 .gamemask .howplay { background: url(../img/bg_connection.jpg) no-repeat;}
 .gamemask .countdown { background: url(../img/bg_countdown.jpg) no-repeat; font-weight: bold; font-size: 40px; color: #fff; text-align: center; line-height: 200px;}
 .gamemask .countdown .pao { width: 370px; height: 260px; background: url(../img/bg_countdown_pao.png) center center no-repeat;}
@@ -186,7 +195,6 @@ ul{
 .homepage .registerbox label.tiaokuan {display: block;font-size: 12px; color: #3c3c3c; float: left; line-height: 32px;}
 .homepage .btn_register {margin-left: 170px;}
 .registerbox .errormsg { color: red; position: absolute; display: block; top:348px; left: 170px; font-size: 12px; display: none;}
-
 
 
 
