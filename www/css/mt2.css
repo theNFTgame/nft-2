@@ -85,12 +85,12 @@ ul{
     .runningbox .gamenote span.note6 { background: blue}
 .runningbox .light {width: 360px; height: 61px; position: absolute; overflow: hidden;top: 249px; left: 15px;}
   .runningbox .light span { width: 360px; height: 61px; background: url(../img/light_climber.png) no-repeat; display: block;}
-    .runningbox .light span.lite1 { background: black}
-    .runningbox .light span.lite2 { background: red}
-    .runningbox .light span.lite3 { background: white}
-    .runningbox .light span.lite4 { background: yellow}
-    .runningbox .light span.lite5 { background: green}
-    .runningbox .light span.lite6 { background: blue}
+    .runningbox .light span.lite5 { background-position: 0 -140px}
+    .runningbox .light span.lite4 { background-position: 0 -210px}
+    .runningbox .light span.lite3 { background-position: 0 -280px}
+    .runningbox .light span.lite2 { background-position: 0 -350px}
+    .runningbox .light span.lite1 { background-position: 0 -420px}
+    .runningbox .light span.lite6 { background-position: 0 -70px}
 .runningbox .power {width: 360px; height: 66px; position: absolute; overflow: hidden; top: 377px; left: 16px; background: url(../img/bg_power.png) no-repeat; padding: 33px 0 0 4px;}
   .power canvas { width: 340px; height:29px; background: url(../img/bg_power_canvas.png) no-repeat; }
 
