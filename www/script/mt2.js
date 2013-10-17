@@ -352,6 +352,8 @@ $(document).ready(function(){
           stopAnimation();
           fntA.ClimerOn = false;
           console.log(fntA.ClimerOn);
+          fntA.gameResult = "lost";
+          postGameRecord(fntA.playerId,fntA.playerName,fntA.x,fntA.gameResult);
         }
       }
     }
@@ -376,25 +378,28 @@ $(document).ready(function(){
               showSubFrame('runbox','rundivbox');
               fntA.gameOn = true;
               ctx0.drawImage(fntA.image0,-20,-446,360,912);
-              countdownNewTime(8);
+              countdownNewTime(3);
             }
           }, 500);
           break;
         // shake event
         case fntA.key + "_changebg":
           if(fntA.ClimerOn){
+            stopAnimation();
             console.log(fntA.x);
             // fntA.gameLevel 
             if(fntA.x< (canvas.width - (canvas.width/10)*(fntA.gameLevel-1) )){
               console.log('You win this step!');
             }else{
               console.log('You lost!');
+              fntA.gameResult = "lost";
+              postGameRecord(fntA.playerId,fntA.playerName,fntA.x,fntA.gameResult);
             }
           }else{
             console.log('Your time is out.');
           }
           console.log('stop the Animation.');
-          stopAnimation();
+          
           break;
       }
     });//socket.on
