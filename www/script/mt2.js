@@ -90,13 +90,8 @@ $(document).ready(function(){
         if(action == 'replay'){
           fntA.gameOn =  false;
           fntA.gameFinish =  false;
-          fntA.shakerecord = 0;
-          fntA.shakeEng = 0;
-          $('.playrecord').html('0米');
-          router.navigate('run');
+          // router.navigate('run');
           $('.gamemask .countdown').html('');
-          var ctxMini =  document.getElementById('minimap').getContext('2d');
-          ctxMini.clearRect(0,0,320,456);
           _smq.push(['pageview', '/replay', '再战一次']);
         // }
         showSubFrame('runbox','qrcodebox');
@@ -282,9 +277,11 @@ $(document).ready(function(){
     console.log('fntClimer');
 
     fntA.ClimerOn = false;
+    fntA.TimerOn = false;
     fntA.image0 = new Image();
     fntA.image0.src = 'img/map/map01.jpg';
     fntA.gameLevel = 1;
+    fntA.shakerecord = 0;
     var canvas = document.getElementById('myCanvas');
     var context = canvas.getContext('2d');
     var mapcanvas =  document.getElementById('mapCanvas');
@@ -327,6 +324,7 @@ $(document).ready(function(){
     function countdownClimerTime(secs) {
       //countdown
       secs = Number(secs);
+      fntA.TimerOn = true;
       for (var i = secs; i >= 0; i--) {
         (function(index) {
           setTimeout(function(){
@@ -340,21 +338,23 @@ $(document).ready(function(){
       if(num >0 ){
         console.log('ClimerTime:' + num + '\n');
         console.log(fntA.ClimerOn);
-        if(fntA.ClimerOn){
+        if(fntA.ClimerOn && fntA.TimerOn){
           $('.light span').removeClass().addClass('lite'+num);
           $('.gamenote span').removeClass().addClass('note'+num);
         }
       }
       if(num === 0) {
-        if(!fntA.startime){
+        // if(!fntA.startime){
           console.log('ClimerTime:' + num + '\n');
           clearTimeout();
           stopAnimation();
-          fntA.ClimerOn = false;
+          // fntA.ClimerOn = false;
+          fntA.TimerOn = false;
+          // show the climer ani
           console.log(fntA.ClimerOn);
           fntA.gameResult = "lost";
           postGameRecord(fntA.playerId,fntA.playerName,fntA.x,fntA.gameResult);
-        }
+        // }
       }
     }
     // NodeJS Server
@@ -385,21 +385,26 @@ $(document).ready(function(){
         // shake event
         case fntA.key + "_changebg":
           if(fntA.ClimerOn){
-            stopAnimation();
-            console.log(fntA.x);
+            fntA.TimerOn = false;
+            var g = canvas.width/2 - (canvas.width/10)*(fntA.gameLevel-1);
+            console.log(fntA.x +',goal:' + g + ',canvas.width:'+ canvas.width);
             // fntA.gameLevel 
-            if(fntA.x< (canvas.width - (canvas.width/10)*(fntA.gameLevel-1) )){
+            if(fntA.x< g) {
               console.log('You win this step!');
+              $('.runningbox .power').css('background-position','0px ' + fntA.gameLevel*30 + 'px');
+              fntA.gameLevel = fntA.gameLevel + 1;
+              fntA.shakerecord = fntA.x;
             }else{
               console.log('You lost!');
               fntA.gameResult = "lost";
+              fntA.shakerecord = 0;
               postGameRecord(fntA.playerId,fntA.playerName,fntA.x,fntA.gameResult);
             }
           }else{
             console.log('Your time is out.');
           }
-          console.log('stop the Animation.');
-          
+          console.log('btn stop the Animation.');
+          stopAnimation();
           break;
       }
     });//socket.on
@@ -432,6 +437,28 @@ $(document).ready(function(){
       drawRectangle(myRectangle, context);
       fntA.requestId = window.requestAnimationFrame(animate);
     }
+    function ClimerAnimate() {
+      // update
+      var time = (new Date()).getTime() - startTime;
+      var amplitude = 160;
+
+      // in ms
+      var period = 1000;
+      var centerX = canvas.width / 2 - myRectangle.width / 2;
+      var nextX = amplitude * Math.sin(time * 2 * Math.PI / period) + centerX;
+      myRectangle.x = nextX;
+      fntA.x = canvas.width - nextX;
+
+      // clear
+      context.clearRect(0, 0, canvas.width, canvas.height);
+
+      // draw
+      
+
+
+      // animate
+      fntA.requestId = window.requestAnimationFrame(ClimerAnimate);
+    }
 
 
     drawRectangle(myRectangle, context);
@@ -461,14 +488,14 @@ $(document).ready(function(){
         $("body").append('<p>' + fntA.x);
       });
     $(".connection").on("click", function(){
-      if(!fntA.startime){
+      // if(!fntA.startime){
         showSubMask('gamemask');
         $('.gamemask .countdown').html();
         clearTimeout();
         countdownClimerTime(6);
         animate();
         fntA.ClimerOn = true;
-      }
+      // }
     });
 
   }//climer game
