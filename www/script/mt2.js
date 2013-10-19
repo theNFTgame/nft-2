@@ -282,6 +282,10 @@ $(document).ready(function(){
     fntA.image0.src = 'img/map/map01.jpg';
     fntA.gameLevel = 1;
     fntA.shakerecord = 0;
+    fntA.ClimerAniStep = 60;
+    fntA.ClimerAniMove = fntA.ClimerAniStep;
+    fntA.defaultY  = -446;
+    
     var canvas = document.getElementById('myCanvas');
     var context = canvas.getContext('2d');
     var mapcanvas =  document.getElementById('mapCanvas');
@@ -348,13 +352,27 @@ $(document).ready(function(){
           console.log('ClimerTime:' + num + '\n');
           clearTimeout();
           stopAnimation();
+          
           // fntA.ClimerOn = false;
           fntA.TimerOn = false;
           // show the climer ani
           console.log(fntA.ClimerOn);
-          fntA.gameResult = "lost";
-          postGameRecord(fntA.playerId,fntA.playerName,fntA.x,fntA.gameResult);
-        // }
+
+          var g = canvas.width/2 - (canvas.width/10)*(fntA.gameLevel-1);
+            console.log(fntA.x +',goal:' + g + ',canvas.width:'+ canvas.width);
+
+          if(fntA.x< g) {
+            console.log('You win this step!');
+            $('.runningbox .power').css('background-position','0px ' + fntA.gameLevel*30 + 'px');
+            fntA.gameLevel = fntA.gameLevel + 1;
+            fntA.shakerecord = fntA.x;
+            ClimerAnimate();
+          }else{
+            console.log('You lost!');
+            fntA.gameResult = "lost";
+            fntA.shakerecord = 0;
+            postGameRecord(fntA.playerId,fntA.playerName,fntA.x,fntA.gameResult);
+          }
       }
     }
     // NodeJS Server
@@ -391,9 +409,9 @@ $(document).ready(function(){
             // fntA.gameLevel 
             if(fntA.x< g) {
               console.log('You win this step!');
-              $('.runningbox .power').css('background-position','0px ' + fntA.gameLevel*30 + 'px');
-              fntA.gameLevel = fntA.gameLevel + 1;
-              fntA.shakerecord = fntA.x;
+              // $('.runningbox .power').css('background-position','0px ' + fntA.gameLevel*30 + 'px');
+              // fntA.gameLevel = fntA.gameLevel + 1;
+              // fntA.shakerecord = fntA.x;
             }else{
               console.log('You lost!');
               fntA.gameResult = "lost";
@@ -439,27 +457,23 @@ $(document).ready(function(){
     }
     function ClimerAnimate() {
       // update
-      var time = (new Date()).getTime() - startTime;
-      var amplitude = 160;
-
-      // in ms
-      var period = 1000;
-      var centerX = canvas.width / 2 - myRectangle.width / 2;
-      var nextX = amplitude * Math.sin(time * 2 * Math.PI / period) + centerX;
-      myRectangle.x = nextX;
-      fntA.x = canvas.width - nextX;
-
+      var newY = fntA.defaultY + ( fntA.ClimerAniStep - fntA.ClimerAniMove + 1) ;
+      fntA.ClimerAniMove = fntA.ClimerAniMove - 1;
       // clear
-      context.clearRect(0, 0, canvas.width, canvas.height);
-
+      ctx0.clearRect(0, 0, canvas.width, canvas.height);
       // draw
-      
-
-
+      ctx0.drawImage(fntA.image0,-20,newY,360,912);
       // animate
-      fntA.requestId = window.requestAnimationFrame(ClimerAnimate);
+      if(fntA.ClimerAniMove == 0){
+        stopAnimation();
+        fntA.defaultY = newY;
+        return;
+      }else{
+        fntA.requestId = window.requestAnimationFrame(ClimerAnimate);
+        console.log('fntA.ClimerAniMove:'+ fntA.ClimerAniMove +',newY:'+ newY );
+      }
+      
     }
-
 
     drawRectangle(myRectangle, context);
     var startTime = (new Date()).getTime();
@@ -505,8 +519,6 @@ $(document).ready(function(){
   var pageUrl = 'http://www.quyeba.com/event/explorerchallenge/m_c.html'; 
 
   //fntA.gameLevel = 1;
-  fntA.shakerecord = 0;  
-  fntA.gameOn = false ;
   fntA.gameOn = false ;
 
   var loadedImages = 0;

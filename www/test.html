@@ -79,6 +79,18 @@ p {margin:0;}
 <script type='text/javascript'>//<![CDATA[ 
 $(window).load(function(){
   var fntA = new Object();
+    fntA.image0 = new Image();
+    fntA.image0.src = 'img/map/map01.jpg';
+    fntA.gameLevel = 1;
+    fntA.shakerecord = 0;
+    fntA.ClimerAniAllMove = 0;
+    
+    fntA.ClimerAniStep = 60;
+    fntA.ClimerAniMove = fntA.ClimerAniStep;
+    fntA.defaultY  = -446;
+
+    var mapcanvas =  document.getElementById('mapCanvas');
+    var ctx0 = mapcanvas.getContext('2d');
 
 var requestAnimationFrame = window.requestAnimationFrame || 
                             window.mozRequestAnimationFrame || 
@@ -140,6 +152,38 @@ var cancelRAF = window.cancelAnimationFrame ||
       animate(myRectangle, canvas, context, startTime)
       // wait one second before starting animation
 
+function ClimerAnimate() {
+      // update
+      
+      var newY = fntA.defaultY + ( fntA.ClimerAniStep - fntA.ClimerAniMove + 1) ;
+      fntA.ClimerAniMove = fntA.ClimerAniMove - 1;
+      
+
+
+      // in ms
+      
+
+      // clear
+      ctx0.clearRect(0, 0, canvas.width, canvas.height);
+
+      // draw
+      
+      ctx0.drawImage(fntA.image0,-20,newY,360,912);
+      
+
+      // animate
+      if(fntA.ClimerAniMove == 0){
+        stopAnimation();
+        fntA.defaultY = newY;
+        return;
+      }else{
+        fntA.requestId = window.requestAnimationFrame(ClimerAnimate);
+        console.log('fntA.ClimerAniMove:'+ fntA.ClimerAniMove +',newY:'+ newY );
+      }
+      
+    }
+
+
 function stopAnimation(e) {
     // use the requestID to cancel the requestAnimationFrame call
     cancelRAF(fntA.requestId);
@@ -163,6 +207,14 @@ $(".pause").on("click", function(){
     pauseAnimation();
     $("body").append('<p>' + fntA.x);
   });
+$('.play').on("click", function(){
+  fntA.ClimerAniMove = fntA.ClimerAniStep;
+    ClimerAnimate();
+    
+  });
+
+ctx0.drawImage(fntA.image0,-20,-446,360,912);
+
 });//]]>  
 
 </script>
@@ -170,13 +222,18 @@ $(".pause").on("click", function(){
 
 </head>
 <body>
-  <div class="timebg">
-    <canvas id="myCanvas" width="320" height="50"></canvas>
-</div>
+<canvas id="mapCanvas" width="320" height="456"></canvas>
 <a class="btn get" href="#">get value</a>
 <a class="btn clean" href="#">clean</a>
 <a class="btn pause" href="#">Pause</a>
 <a class="btn stop" href="#">stop</a>
+
+<a class="btn play" href="#">play</a>
+
+  <div class="timebg">
+    <canvas id="myCanvas" width="320" height="50"></canvas>
+
+</div>
 </body>
 
 
