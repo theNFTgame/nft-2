@@ -72,6 +72,12 @@ p {margin:0;}
   position:relative;
   top:1px;
 }
+
+.map { width: 320px;height:474px;position: relative;}
+
+
+
+
   </style>
   
 
@@ -81,8 +87,11 @@ $(window).load(function(){
   var fntA = new Object();
     fntA.image0 = new Image();
     fntA.image0.src = 'img/map/map01.jpg';
+    fntA.player = new Image();
+    fntA.player.src = 'img/player/g1_ok.png';
     fntA.gameLevel = 1;
     fntA.shakerecord = 0;
+    fntA.climerRecord = 0;
     fntA.ClimerAniAllMove = 0;
     
     fntA.ClimerAniStep = 60;
@@ -161,7 +170,18 @@ function ClimerAnimate() {
 
 
       // in ms
-      
+      if(fntA.climerRecord < 20 && fntA.climerRecord >= 0){
+        playerNewX = -20;
+      }
+      if(fntA.climerRecord >= 20 && fntA.climerRecord < 40){
+        playerNewX = -380;
+      }
+      if(fntA.climerRecord >= 40 && fntA.climerRecord < 60){
+        playerNewX = -740;
+      }
+      if(fntA.climerRecord >= 60 && fntA.climerRecord < 80){
+        playerNewX = -1100;
+      }
 
       // clear
       ctx0.clearRect(0, 0, canvas.width, canvas.height);
@@ -170,15 +190,20 @@ function ClimerAnimate() {
       
       ctx0.drawImage(fntA.image0,-20,newY,360,912);
       
+      ctx0.drawImage(fntA.player,playerNewX,-60,1440,480);
 
       // animate
-      if(fntA.ClimerAniMove == 0){
+      if(fntA.ClimerAniMove < 0){
         stopAnimation();
         fntA.defaultY = newY;
+        fntA.gameLevel =  fntA.gameLevel + 1;
+
         return;
       }else{
         fntA.requestId = window.requestAnimationFrame(ClimerAnimate);
-        console.log('fntA.ClimerAniMove:'+ fntA.ClimerAniMove +',newY:'+ newY );
+        console.log('fntA.ClimerAniMove:'+ fntA.ClimerAniMove +',newY:'+ newY +',playerNewX:' + playerNewX);
+        fntA.climerRecord = fntA.climerRecord + 1 ;
+        
       }
       
     }
@@ -209,11 +234,13 @@ $(".pause").on("click", function(){
   });
 $('.play').on("click", function(){
   fntA.ClimerAniMove = fntA.ClimerAniStep;
+  fntA.climerRecord = 0;
     ClimerAnimate();
     
   });
 
 ctx0.drawImage(fntA.image0,-20,-446,360,912);
+ctx0.drawImage(fntA.player,-20,-60,1440,480);
 
 });//]]>  
 
@@ -222,7 +249,11 @@ ctx0.drawImage(fntA.image0,-20,-446,360,912);
 
 </head>
 <body>
-<canvas id="mapCanvas" width="320" height="456"></canvas>
+<div class="map">
+  <canvas id="mapCanvas" width="320" height="474"></canvas>
+  <div class="theclimer"></div>
+</div>
+
 <a class="btn get" href="#">get value</a>
 <a class="btn clean" href="#">clean</a>
 <a class="btn pause" href="#">Pause</a>

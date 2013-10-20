@@ -268,14 +268,22 @@ $(document).ready(function(){
   function funMapload(){
     fntA.imgArr = [
       'img/map/map01.jpg'];
-    fntA.pathArr = [
-      'img/map/map01.gif'];
+    fntA.playArr = [
+      'img/player/g1_ok.png',
+      'img/player/g2_ok.png',
+      'img/player/g3_ok.png',
+      'img/player/g4_ok.png'];;
+    fntA.playDownArr = [
+      'img/player/g1_down.png',
+      'img/player/g2_down.png',
+      'img/player/g3_down.png',
+      'img/player/g4_down.png'];
   }
 
   //climer game
   function fntClimer(){
     console.log('fntClimer');
-
+    funMapload();
     fntA.ClimerOn = false;
     fntA.TimerOn = false;
     fntA.image0 = new Image();
@@ -287,6 +295,10 @@ $(document).ready(function(){
     fntA.defaultY  = -446;
     fntA.StepOn = false;
     fntA.period = 900;
+    fntA.player = new Image();
+    fntA.player.src = fntA.playArr[0];
+    fntA.climerRecord = 0;
+    fntA.ClimerAniAllMove = 0;
 
     var canvas = document.getElementById('myCanvas');
     var context = canvas.getContext('2d');
@@ -315,11 +327,11 @@ $(document).ready(function(){
     }
     function doUpdateTime(num) {
       //console.log('now countdown number is :' + num);
-      if( num == 5 || num >= 6 ){
+      if( num == 4 || num == 5 || num >= 6 || num == 3 ){
         showSubMask('gamemask','howplay');
         $('.gamemask .countdown').html('');
       }
-      if( num == 4 || num == 1 || num == 2 || num == 3 ){
+      if( num == 1 || num == 2 ){
         // showSubMask('gamemask','connection');
         showSubMask('gamemask','howplay');
       }
@@ -331,6 +343,7 @@ $(document).ready(function(){
       //countdown
       secs = Number(secs);
       fntA.TimerOn = true;
+      fntA.UpdateTime = (new Date()).getTime();
       for (var i = secs; i >= 0; i--) {
         (function(index) {
           setTimeout(function(){
@@ -340,10 +353,9 @@ $(document).ready(function(){
       }
     }
     function doUpdateClimerTime(num) {
-      //console.log('now countdown number is :' + num);
+      console.log('ClimerTime:' + num + '\n' + 'fntA.ClimerOn:' +fntA.ClimerOn + ',fntA.TimerOn:' + fntA.TimerOn + ',fntA.UpdateTime:' + fntA.UpdateTime);
       if(num >0 ){
-        console.log('ClimerTime:' + num + '\n');
-        console.log(fntA.ClimerOn);
+        // console.log('fntA.ClimerOn:' +fntA.ClimerOn + ',fntA.TimerOn:' + fntA.TimerOn + ',fntA.UpdateTime:' + fntA.UpdateTime );
         if(fntA.ClimerOn && fntA.TimerOn){
           $('.light span').removeClass().addClass('lite'+num);
           $('.gamenote span').removeClass().addClass('note'+num);
@@ -351,9 +363,9 @@ $(document).ready(function(){
       }
       if(num === 0) {
         // if(!fntA.startime){
-          console.log('ClimerTime:' + num + '\n');
-          clearTimeout();
-          stopAnimation();
+          
+          // clearTimeout();
+          stopAnimationClimer();
           
           // fntA.ClimerOn = false;
           fntA.TimerOn = false;
@@ -460,14 +472,28 @@ $(document).ready(function(){
     function ClimerAnimate() {
       // update
       var newY = fntA.defaultY + ( fntA.ClimerAniStep - fntA.ClimerAniMove + 1) ;
-      fntA.ClimerAniMove = fntA.ClimerAniMove - 1;
+      fntA.ClimerAniMove = fntA.ClimerAniMove - 0.2;
+      // in ms
+      if(fntA.climerRecord < 20 && fntA.climerRecord >= 0){
+        playerNewX = -20;
+      }
+      if(fntA.climerRecord >= 20 && fntA.climerRecord < 40){
+        playerNewX = -380;
+      }
+      if(fntA.climerRecord >= 40 && fntA.climerRecord < 60){
+        playerNewX = -740;
+      }
+      if(fntA.climerRecord >= 60 && fntA.climerRecord < 80){
+        playerNewX = -1100;
+      }
       // clear
       ctx0.clearRect(0, 0, canvas.width, canvas.height);
       // draw
       ctx0.drawImage(fntA.image0,-20,newY,360,912);
+      ctx0.drawImage(fntA.player,playerNewX,-60,1440,480);
       // animate
-      if(fntA.ClimerAniMove == 0){
-        stopAnimation();
+      if(fntA.ClimerAniMove < 0){
+        stopAnimationClimer();
         if(fntA.gameLevel == 5){
           console.log('You win this game!');
           //
@@ -480,14 +506,18 @@ $(document).ready(function(){
           console.log('gogogo next stpe');
           fntA.defaultY = newY;
           countdownClimerTime(5);
+          animate();
+          fntA.ClimerOn = true;
         }
         return;
       }else{
-        fntA.requestId = window.requestAnimationFrame(ClimerAnimate);
-        console.log('fntA.ClimerAniMove:'+ fntA.ClimerAniMove +',newY:'+ newY );
+        fntA.ClimerRequestId = window.requestAnimationFrame(ClimerAnimate);
+        // console.log('fntA.ClimerAniMove:'+ fntA.ClimerAniMove +',newY:'+ newY +',playerNewX:' + playerNewX);
       }
       
     }
+
+    //init
 
     drawRectangle(myRectangle, context);
     var startTime = (new Date()).getTime();
@@ -496,10 +526,15 @@ $(document).ready(function(){
         // use the requestID to cancel the requestAnimationFrame call
         cancelRAF(fntA.requestId);
     }
+    function stopAnimationClimer(e) {
+        // use the requestID to cancel the requestAnimationFrame call
+        cancelRAF(fntA.ClimerRequestId);
+    }
     function pauseAnimation(e) {
         // use the requestID to cancel the requestAnimationFrame call
         animate();
     }
+    //debug;
 
     $(".get").on("click", function(){
         $("body").append('<p>' + fntA.x);
