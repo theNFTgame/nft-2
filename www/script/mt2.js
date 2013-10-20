@@ -346,7 +346,7 @@ $(document).ready(function(){
       fntA.UpdateTime = (new Date()).getTime();
       for (var i = secs; i >= 0; i--) {
         (function(index) {
-          setTimeout(function(){
+          fntA.clickTimout = setTimeout(function(){
           doUpdateClimerTime(index);
         }, (secs - index) * 1000);
       })(i);
@@ -355,26 +355,18 @@ $(document).ready(function(){
     function doUpdateClimerTime(num) {
       console.log('ClimerTime:' + num + '\n' + 'fntA.ClimerOn:' +fntA.ClimerOn + ',fntA.TimerOn:' + fntA.TimerOn + ',fntA.UpdateTime:' + fntA.UpdateTime);
       if(num >0 ){
-        // console.log('fntA.ClimerOn:' +fntA.ClimerOn + ',fntA.TimerOn:' + fntA.TimerOn + ',fntA.UpdateTime:' + fntA.UpdateTime );
         if(fntA.ClimerOn && fntA.TimerOn){
           $('.light span').removeClass().addClass('lite'+num);
           $('.gamenote span').removeClass().addClass('note'+num);
         }
       }
       if(num === 0) {
-        // if(!fntA.startime){
-          
-          // clearTimeout();
           stopAnimationClimer();
-          
           // fntA.ClimerOn = false;
           fntA.TimerOn = false;
           if(fntA.StepOn == false){
-            console.log(fntA.ClimerOn);
-
             var g = canvas.width/2 - (canvas.width/10)*(fntA.gameLevel-1);
               console.log(fntA.x +',goal:' + g + ',canvas.width:'+ canvas.width);
-
             if(fntA.x> g){
               console.log('You lost!');
               fntA.gameResult = "lost";
@@ -382,8 +374,6 @@ $(document).ready(function(){
               postGameRecord(fntA.playerId,fntA.playerName,fntA.x,fntA.gameResult);
             }
           }
-          // show the climer ani
-
       }
     }
     // NodeJS Server
@@ -414,6 +404,7 @@ $(document).ready(function(){
         // shake event
         case fntA.key + "_changebg":
           stopAnimation();
+          console.log('fntA.ClimerOn:' +fntA.ClimerOn + ',fntA.TimerOn:' + fntA.TimerOn + ',fntA.UpdateTime:' + fntA.UpdateTime);
           if(fntA.ClimerOn){
             fntA.TimerOn = false;
             var g = canvas.width/2 - (canvas.width/10)*(fntA.gameLevel-1);
@@ -424,6 +415,9 @@ $(document).ready(function(){
               $('#myCanvas').css('background-position','0px -' + fntA.gameLevel*30 + 'px');
               fntA.shakerecord = fntA.x;
               fntA.StepOn = true;
+              if(fntA.clickTimout){
+                clearTimeout(fntA.clickTimout);
+              }
               ClimerAnimate();
               fntA.gameLevel = fntA.gameLevel + 1;
             }else{
