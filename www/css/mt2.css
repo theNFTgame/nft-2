@@ -76,13 +76,13 @@ ul{
 
 .header .playrecord { font-size: 140%; color: red; display: block; line-height: 32px;}
 .runningbox .gamenote {width: 360px; height: 60px; position: absolute; overflow: hidden; top: 167px; left: 15px;}
-  .runningbox .gamenote span { width: 360px; height: 60px; background: url(../img/note_climber.png) no-repeat; display: block;}
-    .runningbox .gamenote span.note1 { background: black}
-    .runningbox .gamenote span.note2 { background: red}
-    .runningbox .gamenote span.note3 { background: white}
-    .runningbox .gamenote span.note4 { background: yellow}
-    .runningbox .gamenote span.note5 { background: green}
-    .runningbox .gamenote span.note6 { background: blue}
+  .runningbox .gamenote span { width: 360px; height: 60px; background: url(../img/note_climber.png) 0 -30px no-repeat; display: block;}
+    .runningbox .gamenote span.note1 { background-position: 0 -90px}
+    .runningbox .gamenote span.note2 { background-position: 0 -90px}
+    .runningbox .gamenote span.note3 { background-position: 0 -90px}
+    .runningbox .gamenote span.note4 { background-position: 0 -90px}
+    .runningbox .gamenote span.note5 { background-position: 0 -90px}
+    .runningbox .gamenote span.note6 { background-position: 0 -90px}
 .runningbox .light {width: 360px; height: 61px; position: absolute; overflow: hidden;top: 249px; left: 15px;}
   .runningbox .light span { width: 360px; height: 61px; background: url(../img/light_climber.png) no-repeat; display: block;}
     .runningbox .light span.lite5 { background-position: 0 -140px}
