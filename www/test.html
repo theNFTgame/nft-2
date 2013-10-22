@@ -162,38 +162,50 @@ var cancelRAF = window.cancelAnimationFrame ||
       // wait one second before starting animation
 
 function ClimerAnimate() {
-      // update
-      
-      var newY = fntA.defaultY + ( fntA.ClimerAniStep - fntA.ClimerAniMove + 1) ;
-      fntA.ClimerAniMove = fntA.ClimerAniMove - 1;
-      
-
-
-      // in ms
-      if(fntA.climerRecord < 20 && fntA.climerRecord >= 0){
-        playerNewX = -20;
-      }
-      if(fntA.climerRecord >= 20 && fntA.climerRecord < 40){
-        playerNewX = -380;
-      }
-      if(fntA.climerRecord >= 40 && fntA.climerRecord < 60){
-        playerNewX = -740;
-      }
-      if(fntA.climerRecord >= 60 && fntA.climerRecord < 80){
-        playerNewX = -1100;
-      }
 
       // clear
       ctx0.clearRect(0, 0, canvas.width, canvas.height);
+      // update
+      
+
+      var newY = 0; //fntA.defaultY + ( fntA.ClimerAniStep - fntA.ClimerAniMove + 1) ;
+      fntA.ClimerAniMove = fntA.ClimerAniMove - 1;
+      playerNewY = -60;
+      // in ms
+      if(fntA.climerRecord < 18 && fntA.climerRecord >= 0){
+        playerNewX = -20;
+        // newY = fntA.defaultY + ( fntA.ClimerAniStep - fntA.ClimerAniMove - 10);
+        newY = -436;
+      }
+      if(fntA.climerRecord >= 18 && fntA.climerRecord < 37){
+        playerNewX = -380;
+        // newY = fntA.defaultY + ( fntA.ClimerAniStep - fntA.ClimerAniMove - 10);
+        newY = -425;
+        playerNewY = -50;
+      }
+      if(fntA.climerRecord >= 37 && fntA.climerRecord < 60){
+        playerNewX = -740;
+        // newY = fntA.defaultY + ( fntA.ClimerAniStep - fntA.ClimerAniMove - 10);
+        newY = -388;
+        playerNewY = -40;
+      }
+      if(fntA.climerRecord >= 60 && fntA.climerRecord < 80){
+        playerNewX = -1100;
+        // newY = fntA.defaultY + ( fntA.ClimerAniStep - fntA.ClimerAniMove - 10);
+        newY = -388;
+        playerNewY = -40;
+      }
+
+
 
       // draw
       
-      ctx0.drawImage(fntA.image0,-20,newY,360,912);
+      ctx0.drawImage(fntA.image0,-10,newY,360,912);
       
-      ctx0.drawImage(fntA.player,playerNewX,-60,1440,480);
+      ctx0.drawImage(fntA.player,playerNewX,playerNewY,1440,480);
 
       // animate
-      if(fntA.ClimerAniMove < 0){
+      if(fntA.ClimerAniMove < 2){
         stopAnimation();
         fntA.defaultY = newY;
         fntA.gameLevel =  fntA.gameLevel + 1;
@@ -239,7 +251,7 @@ $('.play').on("click", function(){
     
   });
 
-ctx0.drawImage(fntA.image0,-20,-446,360,912);
+ctx0.drawImage(fntA.image0,-10,-446,360,912);
 ctx0.drawImage(fntA.player,-20,-60,1440,480);
 
 });//]]>  

@@ -362,6 +362,7 @@ $(document).ready(function(){
       }
       if(num === 0) {
           stopAnimationClimer();
+          stopAnimation();
           // fntA.ClimerOn = false;
           fntA.TimerOn = false;
           if(fntA.StepOn == false){
@@ -420,6 +421,7 @@ $(document).ready(function(){
               }
               ClimerAnimate();
               fntA.gameLevel = fntA.gameLevel + 1;
+              fntA.x = 999;
             }else{
               console.log('You lost!');
               fntA.gameResult = "lost";
@@ -464,27 +466,33 @@ $(document).ready(function(){
       fntA.requestId = window.requestAnimationFrame(animate);
     }
     function ClimerAnimate() {
+      // clear
+      ctx0.clearRect(0, 0, canvas.width, canvas.height);
       // update
-      var newY = fntA.defaultY + ( fntA.ClimerAniStep - fntA.ClimerAniMove + 1) ;
-      fntA.ClimerAniMove = fntA.ClimerAniMove - 0.2;
+      
+
+      var newY = 0; 
+      fntA.ClimerAniMove = fntA.ClimerAniMove - 1;
+      playerNewY = -60;
       // in ms
-      if(fntA.climerRecord < 20 && fntA.climerRecord >= 0){
-        playerNewX = -20;
+      if(fntA.climerRecord < 18 && fntA.climerRecord >= 0){
+        newY = -436;
       }
-      if(fntA.climerRecord >= 20 && fntA.climerRecord < 40){
+      if(fntA.climerRecord >= 18 && fntA.climerRecord < 37){
         playerNewX = -380;
+        newY = -425;
+        playerNewY = -50;
       }
-      if(fntA.climerRecord >= 40 && fntA.climerRecord < 60){
+      if(fntA.climerRecord >= 37 && fntA.climerRecord < 60){
         playerNewX = -740;
+        newY = -388;
+        playerNewY = -40;
       }
       if(fntA.climerRecord >= 60 && fntA.climerRecord < 80){
         playerNewX = -1100;
+        newY = -388;
+        playerNewY = -40;
       }
-      // clear
-      ctx0.clearRect(0, 0, canvas.width, canvas.height);
-      // draw
-      ctx0.drawImage(fntA.image0,-20,newY,360,912);
-      ctx0.drawImage(fntA.player,playerNewX,-60,1440,480);
       // animate
       if(fntA.ClimerAniMove < 0){
         stopAnimationClimer();
