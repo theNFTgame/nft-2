@@ -272,7 +272,7 @@ $(document).ready(function(){
       'img/player/g1_ok.png',
       'img/player/g2_ok.png',
       'img/player/g3_ok.png',
-      'img/player/g4_ok.png'];;
+      'img/player/g4_ok.png'];
     fntA.playDownArr = [
       'img/player/g1_down.png',
       'img/player/g2_down.png',
