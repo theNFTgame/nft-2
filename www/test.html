@@ -172,12 +172,17 @@ var cancelRAF = window.cancelAnimationFrame ||
       animate(myRectangle, canvas, context, startTime)
       // wait one second before starting animation
 
-function ClimerAnimate() {
+function ClimerAnimate(event) {
 
       // clear
       ctx0.clearRect(0, 0, canvas.width, canvas.height);
       // update
-      fntA.player.src = 'img/player/g'+ fntA.gameLevel+'_ok.png';
+      if(!event){
+        fntA.player.src = 'img/player/g'+ fntA.gameLevel+'_down.png';
+      }else{
+        fntA.player.src = 'img/player/g'+ fntA.gameLevel+'_ok.png';
+      }
+      
       // fntA.player.src = 'img/player/g2_ok.png';
 
       console.log('fntA.player.src:' + fntA.player.src + ',fntA.gameLevel:' + fntA.gameLevel);

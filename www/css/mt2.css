@@ -76,13 +76,13 @@ ul{
 
 .header .playrecord { font-size: 140%; color: red; display: block; line-height: 32px;}
 .runningbox .gamenote {width: 360px; height: 60px; position: absolute; overflow: hidden; top: 167px; left: 15px;}
-  .runningbox .gamenote span { width: 360px; height: 60px; background: url(../img/note_climber.png) 0 -30px no-repeat; display: block;}
-    .runningbox .gamenote span.note1 { background-position: 0 -90px}
-    .runningbox .gamenote span.note2 { background-position: 0 -90px}
-    .runningbox .gamenote span.note3 { background-position: 0 -90px}
-    .runningbox .gamenote span.note4 { background-position: 0 -90px}
-    .runningbox .gamenote span.note5 { background-position: 0 -90px}
-    .runningbox .gamenote span.note6 { background-position: 0 -90px}
+  .runningbox .gamenote span { width: 360px; height: 60px; background: url(../img/note_climber.png) 0 -60px no-repeat; display: block;}
+    .runningbox .gamenote span.note1 { background-position: 0 -120px}
+    .runningbox .gamenote span.note2 { background-position: 0 -120px}
+    .runningbox .gamenote span.note3 { background-position: 0 -120px}
+    .runningbox .gamenote span.note4 { background-position: 0 -120px}
+    .runningbox .gamenote span.note5 { background-position: 0 -120px}
+    .runningbox .gamenote span.note6 { background-position: 0 -120px}
 .runningbox .light {width: 360px; height: 61px; position: absolute; overflow: hidden;top: 249px; left: 15px;}
   .runningbox .light span { width: 360px; height: 61px; background: url(../img/light_climber.png) no-repeat; display: block;}
     .runningbox .light span.lite5 { background-position: 0 -140px}
@@ -99,7 +99,7 @@ ul{
 .runningbox .map { width: 320px; height: 474px; position: absolute; top:26px; right: 30px; }
 .runningbox .map canvas { display: block; float: left;}
 
-#mapCanvas { background: url(../img/map/map01.jpg) center bottom no-repeat;}
+#mapCanvas { /*background: url(../img/map/map01.jpg) center bottom no-repeat;*/}
 .theclimer { display: none; background: url(../img/player/g1_ok.png);}
 
 
