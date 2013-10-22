@@ -296,7 +296,7 @@ $(document).ready(function(){
     fntA.StepOn = false;
     fntA.period = 900;
     fntA.player = new Image();
-    fntA.player.src = fntA.playArr[0];
+    fntA.player.src = 'img/player/g1_ok.png';
     fntA.climerRecord = 0;
     fntA.ClimerAniAllMove = 0;
 

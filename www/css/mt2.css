@@ -100,7 +100,7 @@ ul{
 .runningbox .map canvas { display: block; float: left;}
 
 #mapCanvas { background: url(../img/map/map01.jpg) center bottom no-repeat;}
-.theclimer {}
+.theclimer { display: none; background: url(../img/player/g1_ok.png);}
 
 
 /**/
