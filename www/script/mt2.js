@@ -307,7 +307,7 @@ $(document).ready(function(){
 
     
     var myRectangle = {
-      x: 20,
+      x: 320,
       y: 0,
       width: 20,
       height: 50,
@@ -423,6 +423,7 @@ $(document).ready(function(){
               
               
               // fntA.x = 999;
+              fntA.climerRecord = 0;
               ClimerAnimate('ok');
               // fntA.gameLevel = fntA.gameLevel + 1;
             }else{
@@ -481,10 +482,10 @@ $(document).ready(function(){
       
       // fntA.player.src = 'img/player/g2_ok.png';
 
-      console.log('fntA.player.src:' + fntA.player.src + ',fntA.gameLevel:' + fntA.gameLevel);
+      console.log('fntA.player.src:' + fntA.player.src + ',fntA.gameLevel:' + fntA.gameLevel + ',fntA.climerRecord:'+ fntA.climerRecord);
 
       var newY = 0 , newX = -10; //fntA.defaultY + ( fntA.ClimerAniStep - fntA.ClimerAniMove + 1) ;
-      fntA.ClimerAniMove = fntA.ClimerAniMove - 1;
+      fntA.ClimerAniMove = fntA.ClimerAniMove - 0.4;
       playerNewY = -60;
       // in ms
       switch (fntA.gameLevel) {
@@ -503,7 +504,7 @@ $(document).ready(function(){
             playerNewY = -40;
             newY = -388;
           }
-          if(fntA.climerRecord >= 60 && fntA.climerRecord < 80){
+          if(fntA.climerRecord >= 60 ){
             playerNewX = -1100;
             playerNewY = -40;
             newY = -388;
@@ -524,7 +525,7 @@ $(document).ready(function(){
             playerNewY = -20;
             newY = -298;
           }
-          if(fntA.climerRecord >= 55 && fntA.climerRecord < 80){
+          if(fntA.climerRecord >= 55 ){
             playerNewX = -1100;
             playerNewY = -20;
             newY = -296;
@@ -549,7 +550,7 @@ $(document).ready(function(){
             newY = -240;
             newX = -26;
           }
-          if(fntA.climerRecord >= 55 && fntA.climerRecord < 80){
+          if(fntA.climerRecord >= 55 ){
             playerNewX = -1096;
             playerNewY = -20;
             newY = -240;
@@ -575,7 +576,7 @@ $(document).ready(function(){
             newY = -212;
             newX = -30;
           }
-          if(fntA.climerRecord >= 55 && fntA.climerRecord < 80){
+          if(fntA.climerRecord >= 55 ){
             playerNewX = -1076;
             playerNewY = -20;
             newY = -210;
@@ -601,7 +602,7 @@ $(document).ready(function(){
             newY = -160;
             newX = -40;
           }
-          if(fntA.climerRecord >= 55 && fntA.climerRecord < 80){
+          if(fntA.climerRecord >= 55 ){
             playerNewX = -1066;
             playerNewY = -27;
             newY = -150;
@@ -609,8 +610,6 @@ $(document).ready(function(){
           }
         break;
       }
-
-
 
 
       // draw
@@ -634,14 +633,16 @@ $(document).ready(function(){
           console.log('gogogo next stpe');
           fntA.defaultY = newY;
           fntA.gameLevel = fntA.gameLevel + 1;
-          countdownClimerTime(5);
+          fntA.ClimerAniMove = fntA.ClimerAniStep;
+          countdownClimerTime(6);
           animate();
           fntA.ClimerOn = true;
         }
         return;
       }else{
+        fntA.climerRecord = fntA.climerRecord + 1 ;
         fntA.ClimerRequestId = window.requestAnimationFrame(ClimerAnimate);
-        // console.log('fntA.ClimerAniMove:'+ fntA.ClimerAniMove +',newY:'+ newY +',playerNewX:' + playerNewX);
+        console.log('fntA.ClimerAniMove:'+ fntA.ClimerAniMove +',newY:'+ newY +',playerNewX:' + playerNewX);
       }
       
     }
