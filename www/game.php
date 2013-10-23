@@ -59,8 +59,8 @@ else{
     </script>
   </head>
   <body>
-<div class="userinfo" style="dislpay:none" data-userid="<?php echo $user_id; ?>" data-username="<?php echo $user_name; ?>" data-avatar="<?php echo $user_avatar; ?>" ></div>
-<!--       <section id="intro" class="clearfix frame homepage" style="display:none">
+      <div class="userinfo" style="dislpay:none" data-userid="<?php echo $user_id; ?>" data-username="<?php echo $user_name; ?>" data-avatar="<?php echo $user_avatar; ?>" ></div>
+      <section id="intro" class="clearfix frame homepage" style="display:none">
         <div class="minisite">
           <div class="sitemask"></div>
           <div class="iframbox">
@@ -101,7 +101,7 @@ else{
             <a class="navlink linklevel" href="#/index">登录</a>
           </div>
         </div>
-      </section> -->
+      </section>
 
     <div id="pagebody"> 
 
