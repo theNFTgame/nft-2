@@ -140,7 +140,7 @@ $(document).ready(function(){
   }
 
   function postGameRecord(id,name,record,result){ 
-    var postData = 'game_type=0&score='+record + '&user_id=' + id + '&user_name=' + name + '&result=' +result ;
+    var postData = 'game_type=0&gamename=game2score='+record + '&user_id=' + id + '&user_name=' + name + '&result=' +result ;
     //  console.log(postData);
     var tempIp = 'http://www.quyeba.com/event/explorerchallenge/'
     $.ajax({type:'POST',url: tempIp +'game/save',data:postData,
