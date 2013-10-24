@@ -293,7 +293,8 @@ $(document).ready(function(){
     fntA.ClimerAniStep = 60;
     fntA.ClimerAniMove = fntA.ClimerAniStep;
     fntA.defaultY  = -446;
-    fntA.StepOn = false;
+    fntA.StepStarted = false;
+    fntA.gameFinish =  false;
     fntA.period = 2000;
     fntA.player = new Image();
     fntA.player.src = 'img/player/g1_ok.png';
@@ -344,16 +345,22 @@ $(document).ready(function(){
       secs = Number(secs);
       fntA.TimerOn = true;
       fntA.UpdateTime = (new Date()).getTime();
+      var updateTime = fntA.UpdateTime;
       for (var i = secs; i >= 0; i--) {
         (function(index) {
           fntA.clickTimout = setTimeout(function(){
-          doUpdateClimerTime(index);
+            if(updateTime ===fntA.UpdateTime){
+              doUpdateClimerTime(index);
+            }else{
+              console.log('updateTime:'+ updateTime + ',fntA.UpdateTime:' + fntA.UpdateTime);
+              return;
+            }
         }, (secs - index) * 1000);
       })(i);
       }
     }
     function doUpdateClimerTime(num) {
-      console.log('ClimerTime:' + num + '\n' + 'fntA.ClimerOn:' +fntA.ClimerOn + ',fntA.TimerOn:' + fntA.TimerOn + ',fntA.UpdateTime:' + fntA.UpdateTime);
+      // console.log('countdonwTime:' + num + '\n' + 'fntA.ClimerOn:' +fntA.ClimerOn + ',fntA.TimerOn:' + fntA.TimerOn + ',fntA.UpdateTime:' + fntA.UpdateTime);
       if(num >0 ){
         if(fntA.ClimerOn && fntA.TimerOn){
           $('.light span').removeClass().addClass('lite'+num);
@@ -365,15 +372,15 @@ $(document).ready(function(){
           stopAnimation();
           // fntA.ClimerOn = false;
           fntA.TimerOn = false;
-          if(fntA.StepOn == false){
-            var g = canvas.width/2 - (canvas.width/10)*(fntA.gameLevel-1);
-              console.log(fntA.x +',goal:' + g + ',canvas.width:'+ canvas.width);
-            if(fntA.x> g){
-              console.log('You lost!');
+          if(!fntA.StepStarted || !fntA.gameFinish ){
+            // var g = canvas.width/2 - (canvas.width/10)*(fntA.gameLevel-1);
+            //   console.log(fntA.x +',goal:' + g + ',canvas.width:'+ canvas.width);
+            // if(fntA.x> g){
+              console.log('doUpdateClimerTime lost!');
               fntA.gameResult = "lost";
               fntA.shakerecord = 0;
               postGameRecord(fntA.playerId,fntA.playerName,fntA.x,fntA.gameResult);
-            }
+            // }
           }
       }
     }
@@ -398,14 +405,14 @@ $(document).ready(function(){
               showSubFrame('runbox','rundivbox');
               fntA.gameOn = true;
               ctx0.drawImage(fntA.image0,-20,-446,360,912);
-              countdownNewTime(3);
+              countdownNewTime(2);
             }
-          }, 500);
+          }, 100);
           break;
         // shake event
         case fntA.key + "_changebg":
           stopAnimation();
-          console.log('fntA.ClimerOn:' +fntA.ClimerOn + ',fntA.TimerOn:' + fntA.TimerOn + ',fntA.UpdateTime:' + fntA.UpdateTime);
+          // console.log('fntA.ClimerOn:' +fntA.ClimerOn + ',fntA.TimerOn:' + fntA.TimerOn + ',fntA.UpdateTime:' + fntA.UpdateTime);
           if(fntA.ClimerOn){
             fntA.TimerOn = false;
             var g = canvas.width/2 - (canvas.width/10)*(fntA.gameLevel-1);
@@ -413,31 +420,31 @@ $(document).ready(function(){
             // fntA.gameLevel 
             if(fntA.x< g) {
               console.log('You win this step!');
-              $('#myCanvas').css('background-position','0px -' + fntA.gameLevel*30 + 'px');
-              fntA.shakerecord = fntA.x;
-              fntA.StepOn = true;
-              if(fntA.clickTimout){
-                clearTimeout(fntA.clickTimout);
-                console.log('clearTimeout(fntA.clickTimout)');
+              if(fntA.gameLevel<5){
+                $('#myCanvas').css('background-position','0px -' + fntA.gameLevel*30 + 'px');
               }
-              
-              
+              fntA.shakerecord = fntA.x;
+              // fntA.StepStarted = true;
+              // if(fntA.clickTimout){
+              //   clearTimeout(fntA.clickTimout);
+              //   console.log('clearTimeout(fntA.clickTimout)');
+              // }
               // fntA.x = 999;
               fntA.climerRecord = 0;
-              ClimerAnimate('ok');
+              fntA.thisStpe = 'ok';
+              ClimerAnimate();
               // fntA.gameLevel = fntA.gameLevel + 1;
             }else{
               console.log('You lost!');
-              fntA.gameResult = "lost";
               fntA.shakerecord = 0;
-              ClimerAnimate('down');
-              postGameRecord(fntA.playerId,fntA.playerName,fntA.x,fntA.gameResult);
+              fntA.climerRecord = 0;
+              fntA.thisStpe = 'down';
+              ClimerAnimate();
+              // postGameRecord(fntA.playerId,fntA.playerName,fntA.x,fntA.gameResult);
             }
           }else{
             console.log('Your time is out.');
           }
-          console.log('btn stop the Animation.');
-          
           break;
       }
     });//socket.on
@@ -470,19 +477,21 @@ $(document).ready(function(){
       drawRectangle(myRectangle, context);
       fntA.requestId = window.requestAnimationFrame(animate);
     }
-    function ClimerAnimate(event) {
+    function ClimerAnimate() {
       // clear
       ctx0.clearRect(0, 0, canvas.width, canvas.height);
+
+      var nextStpe = fntA.thisStpe;
       // update
-      if(event == 'down'){
+      if(nextStpe == 'down'){
         fntA.player.src = 'img/player/g'+ fntA.gameLevel+'_down.png';
-      }else if( event == 'ok'){
+      }else if( nextStpe == 'ok'){
         fntA.player.src = 'img/player/g'+ fntA.gameLevel+'_ok.png';
       }
       
       // fntA.player.src = 'img/player/g2_ok.png';
 
-      console.log('fntA.player.src:' + fntA.player.src + ',fntA.gameLevel:' + fntA.gameLevel + ',fntA.climerRecord:'+ fntA.climerRecord);
+      // console.log('fntA.player.src:' + fntA.player.src + ',fntA.gameLevel:' + fntA.gameLevel + ',fntA.climerRecord:'+ fntA.climerRecord);
 
       var newY = 0 , newX = -10; //fntA.defaultY + ( fntA.ClimerAniStep - fntA.ClimerAniMove + 1) ;
       fntA.ClimerAniMove = fntA.ClimerAniMove - 0.4;
@@ -509,6 +518,10 @@ $(document).ready(function(){
             playerNewY = -40;
             newY = -388;
           }
+          if(fntA.climerRecord >= 100 && event == 'down'){
+            playerNewX = -1460;
+            playerNewY = -20;
+          }
         break;
         case 2:
           if(fntA.climerRecord < 18 && fntA.climerRecord >= 0){
@@ -529,6 +542,10 @@ $(document).ready(function(){
             playerNewX = -1100;
             playerNewY = -20;
             newY = -296;
+          }
+          if(fntA.climerRecord >= 100  && event == 'down'){
+            playerNewX = -1460;
+            playerNewY = -20;
           }
         break;
         case 3:
@@ -556,6 +573,10 @@ $(document).ready(function(){
             newY = -240;
             newX = -30;
           }
+          if(fntA.climerRecord >= 100  && event == 'down'){
+            playerNewX = -1460;
+            playerNewY = -20;
+          }
         break;
         case 4:
           if(fntA.climerRecord < 18 && fntA.climerRecord >= 0){
@@ -581,6 +602,10 @@ $(document).ready(function(){
             playerNewY = -20;
             newY = -210;
             newX = -38;
+          }
+          if(fntA.climerRecord >= 100  && event == 'down'){
+            playerNewX = -1460;
+            playerNewY = -20;
           }
         break;
         case 5:
@@ -608,6 +633,10 @@ $(document).ready(function(){
             newY = -150;
             newX = -30;
           }
+          if(fntA.climerRecord >= 100  && event == 'down'){
+            playerNewX = -1460;
+            playerNewY = -20;
+          }
         break;
       }
 
@@ -621,8 +650,9 @@ $(document).ready(function(){
       // animate
       if(fntA.ClimerAniMove < 0){
         stopAnimationClimer();
+        fntA.StepStarted = true;
         if(fntA.gameLevel == 5){
-          console.log('You win this game!');
+          // console.log('You win this game!');
           //
           showSubMask('gamemask','winwithpoint');
           //
@@ -630,19 +660,26 @@ $(document).ready(function(){
           postGameRecord(fntA.playerId,fntA.playerName,fntA.allmoveA,fntA.gameResult);
           fntA.gameFinish = true;
         }else{
-          console.log('gogogo next stpe');
-          fntA.defaultY = newY;
-          fntA.gameLevel = fntA.gameLevel + 1;
-          fntA.ClimerAniMove = fntA.ClimerAniStep;
-          countdownClimerTime(6);
-          animate();
-          fntA.ClimerOn = true;
+
+          if(nextStpe == 'down'){
+            fntA.gameResult = 'lost';
+            postGameRecord(fntA.playerId,fntA.playerName,fntA.allmoveA,fntA.gameResult);
+          }else if( nextStpe == 'ok'){
+            // console.log('try for next stpe');
+            fntA.defaultY = newY;
+            fntA.gameLevel = fntA.gameLevel + 1;
+            fntA.ClimerAniMove = fntA.ClimerAniStep;
+            
+            animate();
+            fntA.ClimerOn = true;
+            countdownClimerTime(5);
+          }
         }
         return;
       }else{
         fntA.climerRecord = fntA.climerRecord + 1 ;
         fntA.ClimerRequestId = window.requestAnimationFrame(ClimerAnimate);
-        console.log('fntA.ClimerAniMove:'+ fntA.ClimerAniMove +',newY:'+ newY +',playerNewX:' + playerNewX);
+        // console.log('fntA.ClimerAniMove:'+ fntA.ClimerAniMove +',newY:'+ newY +',playerNewX:' + playerNewX);
       }
       
     }
