@@ -53,7 +53,11 @@ $(document).ready(function(){
         //router.navigate('run');
         showSubFrame('runbox','qrcodebox');
         // fntRun();
-        fntClimer();
+        if(!fntA.period){
+          console.log('mainfunc call fntClimer');
+          fntClimer();
+        }
+        
         $('.iframbox iframe').attr('src','');
         _smq.push(['pageview', '/qrcode', '扫描二维码']);
       }else{
@@ -107,7 +111,10 @@ $(document).ready(function(){
         }
         showSubFrame('runbox','qrcodebox');
         // fntRun();
-        fntClimer();
+        if(!fntA.period){
+          console.log('#run call fntClimer');
+          fntClimer();
+        }
         $('.iframbox').html('');
         //$('.iframbox iframe').attr('src','');
         _smq.push(['pageview', '/run', '跑步']);
@@ -225,7 +232,10 @@ $(document).ready(function(){
       }
     });
     // fntRun();
-    fntClimer();
+    if(!fntA.period){
+      console.log('pose login call fntClimer');
+          fntClimer();
+        }
   }
   function postRegister(){
     var userName  = $('#regumail').val()
@@ -274,7 +284,9 @@ $(document).ready(function(){
       }
     });
     // fntRun();
-    fntClimer();
+    if(!fntA.period){
+          fntClimer();
+        }
   }
   function funMapload(){
     fntA.imgArr = [
@@ -293,7 +305,7 @@ $(document).ready(function(){
 
   //climer game
   function fntClimer(){
-    console.log('fntClimer');
+    console.log('fntClimer' + fntA.TimerOn);
     funMapload();
     fntA.ClimerOn = false;
     fntA.TimerOn = false;

@@ -132,7 +132,7 @@ ul{
 
 /**/
 
-.lefticon { position: absolute; left: -30px; background: url(../img/icon.png) no-repeat; width: 130px; height: 212px; top: 30px;}
+.lefticon { position: absolute; left: -30px; background: url(../img/icon.png) no-repeat; width: 130px; height: 222px; top: 30px;}
 .righticon { position: absolute; right: -45px;background: url(../img/icon.png) right top no-repeat; width:78px; height: 212px; top: 30px;}
 .righticon .link { width: 78px; display: block; height: 82px; text-indent: -9999em;}
 
