@@ -700,7 +700,8 @@ $(document).ready(function(){
             
             animate();
             fntA.ClimerOn = true;
-            countdownClimerTime(5);
+            $('.gamenote span').removeClass().addClass('noten');
+            countdownClimerTime(6);
           }
         }
         fntA.climerRuning = false;
@@ -750,7 +751,7 @@ $(document).ready(function(){
         showSubMask('gamemask');
         $('.gamemask .countdown').html();
         clearTimeout();
-        countdownClimerTime(5);
+        countdownClimerTime(6);
         animate();
         fntA.ClimerOn = true;
       // }
