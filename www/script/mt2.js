@@ -311,6 +311,8 @@ $(document).ready(function(){
     fntA.TimerOn = false;
     fntA.image0 = new Image();
     fntA.image0.src = 'img/map/map01.jpg';
+    fntA.iconPower = new Image();
+    fntA.iconPower.src = 'img/icon_power.png';
     fntA.gameLevel = 1;
     fntA.shakerecord = 0;
     fntA.ClimerAniStep = 60;
@@ -319,7 +321,7 @@ $(document).ready(function(){
     fntA.StepStarted = false;
     fntA.gameFinish =  false;
     fntA.climerRuning = false;
-    fntA.period = 2000;
+    fntA.period = 800; // icon speed
     fntA.player = new Image();
     fntA.player.src = 'img/player/g1_ok.png';
     fntA.climerRecord = 0;
@@ -332,8 +334,8 @@ $(document).ready(function(){
 
     
     var myRectangle = {
-      x: fRandomBy(40,320),
-      y: 0,
+      x: fRandomBy(0,40),
+      y: 3,
       width: 20,
       height: 50,
       borderWidth: 0
@@ -447,7 +449,7 @@ $(document).ready(function(){
             if(fntA.x< g) {
               console.log('You win this step!');
               if(fntA.gameLevel<5){
-                $('#myCanvas').css('background-position','0px -' + fntA.gameLevel*30 + 'px');
+                // $('#myCanvas').css('background-position','0px -' + fntA.gameLevel*30 + 'px');
                 $('.gamenote span').removeClass().addClass('notes');
               }
               fntA.shakerecord = fntA.x;
@@ -477,13 +479,14 @@ $(document).ready(function(){
     });//socket.on
 
     function drawRectangle(myRectangle, context) {
-      context.beginPath();
-      context.rect(myRectangle.x, myRectangle.y, myRectangle.width, myRectangle.height);
-      context.fillStyle = 'blue';
-      context.fill();
-      context.lineWidth = myRectangle.borderWidth;
-      context.strokeStyle = 'blue';
-      context.stroke();
+      // context.beginPath();
+      // context.rect(myRectangle.x, myRectangle.y, myRectangle.width, myRectangle.height);
+      // context.fillStyle = 'blue';
+      // context.fill();
+      // context.lineWidth = myRectangle.borderWidth;
+      // context.strokeStyle = 'blue';
+      // context.stroke();
+      context.drawImage(fntA.iconPower,myRectangle.x,myRectangle.y,23,23);
     }
     function animate() {
       // update
@@ -695,12 +698,12 @@ $(document).ready(function(){
           }else if( nextStpe == 'ok'){
             // console.log('try for next stpe');
             fntA.defaultY = newY;
+            $('#myCanvas').css('background-position','0px -' + fntA.gameLevel*30 + 'px');
+            $('.gamenote span').removeClass().addClass('noten');
             fntA.gameLevel = fntA.gameLevel + 1;
             fntA.ClimerAniMove = fntA.ClimerAniStep;
-            
             animate();
             fntA.ClimerOn = true;
-            $('.gamenote span').removeClass().addClass('noten');
             countdownClimerTime(6);
           }
         }

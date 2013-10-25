@@ -200,7 +200,20 @@ ul{
 .registerbox .errormsg { color: red; position: absolute; display: block; top:348px; left: 170px; font-size: 12px; display: none;}
 
 
-
+.theclimer { display: none; width: 0; height: 0; overflow: hidden;
+  background: 
+      url(img/player/g1_ok.png) , 
+      url(img/player/g2_ok.png),
+      url(img/player/g3_ok.png),
+      url(img/player/g4_ok.png),
+      url(img/player/g5_ok.png),
+      url(img/player/g1_down.png),
+      url(img/player/g2_down.png),
+      url(img/player/g3_down.png),
+      url(img/player/g4_down.png),
+      url(img/player/g5_down.png),
+      url(img/icon_power.png);
+}
 
 
 

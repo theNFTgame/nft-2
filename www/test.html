@@ -86,7 +86,8 @@ p {margin:0;}
   url(img/player/g2_down.png),
   url(img/player/g3_down.png),
   url(img/player/g4_down.png),
-  url(img/player/g5_down.png);
+  url(img/player/g5_down.png),
+  url(img/icon_power.png);
 }
 
   </style>
@@ -100,6 +101,8 @@ $(window).load(function(){
     fntA.image0.src = 'img/map/map01.jpg';
     fntA.player = new Image();
     fntA.player.src = 'img/player/g2_ok.png';
+    fntA.iconPower = new Image();
+    fntA.iconPower.src = 'img/icon_power.png';
     fntA.gameLevel = 1;
     fntA.shakerecord = 0;
     fntA.climerRecord = 0;
@@ -124,13 +127,15 @@ var cancelRAF = window.cancelAnimationFrame ||
                 window.msCancelAnimationFrame;
 
   function drawRectangle(myRectangle, context) {
-    context.beginPath();
-    context.rect(myRectangle.x, myRectangle.y, myRectangle.width, myRectangle.height);
-    context.fillStyle = 'green';
-    context.fill();
-    context.lineWidth = myRectangle.borderWidth;
-    context.strokeStyle = 'green';
-    context.stroke();
+    // context.beginPath();
+    // context.rect(myRectangle.x, myRectangle.y, myRectangle.width, myRectangle.height);
+    // context.fillStyle = 'green';
+    // context.fill();
+    // context.lineWidth = myRectangle.borderWidth;
+    // context.strokeStyle = 'green';
+    // context.stroke();
+
+    context.drawImage(fntA.iconPower,myRectangle.x,myRectangle.y,23,23);
   }
       function animate() {
         // update
