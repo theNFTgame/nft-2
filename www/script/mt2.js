@@ -323,7 +323,7 @@ $(document).ready(function(){
     fntA.climerRuning = false;
     fntA.period = 800; // icon speed
     fntA.player = new Image();
-    fntA.player.src = 'img/player/g1_ok.png';
+    fntA.player.src = 'img/player/g0.png';
     fntA.climerRecord = 0;
     fntA.ClimerAniAllMove = 0;
 
@@ -432,7 +432,7 @@ $(document).ready(function(){
               showSubFrame('runbox','rundivbox');
               fntA.gameOn = true;
               ctx0.drawImage(fntA.image0,-10,-436,360,912);
-              ctx0.drawImage(fntA.player,-20,-60,1800,480);
+              ctx0.drawImage(fntA.player,20,-40,320,504);
               countdownNewTime(2);
             }
           }, 100);
@@ -497,6 +497,7 @@ $(document).ready(function(){
       var period = fntA.period;
       var centerX = canvas.width / 2 - myRectangle.width / 2;
       var nextX = amplitude * Math.sin(time * 2 * Math.PI / period) + centerX;
+
       myRectangle.x = nextX;
       fntA.x = canvas.width - nextX;
 
@@ -514,18 +515,23 @@ $(document).ready(function(){
 
       var nextStpe = fntA.thisStpe;
       // update
-      if(nextStpe == 'down'){
-        fntA.player.src = 'img/player/g'+ fntA.gameLevel+'_down.png';
-      }else if( nextStpe == 'ok'){
-        fntA.player.src = 'img/player/g'+ fntA.gameLevel+'_ok.png';
-        if(fntA.gameLevel == 5){
-          fntA.gameFinish = true;
-        }
+      // if(nextStpe == 'down'){
+      //   fntA.player.src = 'img/player/g'+ fntA.gameLevel+'_down.png';
+      // }else if( nextStpe == 'ok'){
+      //   fntA.player.src = 'img/player/g'+ fntA.gameLevel+'_ok.png';
+      //   if(fntA.gameLevel == 5){
+      //     fntA.gameFinish = true;
+      //   }
+      // }
+      fntA.iconPower = new Image();
+      fntA.player.src = 'img/player/g'+ fntA.gameLevel+'_ok.png';
+      if(fntA.gameLevel == 5){
+        fntA.gameFinish = true;
       }
       
       // fntA.player.src = 'img/player/g2_ok.png';
 
-      console.log('fntA.player.src:' + fntA.player.src + ',fntA.gameLevel:' + fntA.gameLevel + ',fntA.climerRecord:'+ fntA.climerRecord);
+     
 
       var newY = 0 , newX = -10 ,playerNewX = -20 ,playerNewY = -60; //fntA.defaultY + ( fntA.ClimerAniStep - fntA.ClimerAniMove + 1) ;
       fntA.ClimerAniMove = fntA.ClimerAniMove - 0.35;
@@ -550,10 +556,17 @@ $(document).ready(function(){
             playerNewX = -1100;
             playerNewY = -40;
             newY = -388;
+            if(nextStpe == 'down'){
+              fntA.iconPower = new Image();
+              fntA.player.src = 'img/player/down.png';
+              playerNewX = -20;
+              playerNewY = -80;
+            }
           }
           if(fntA.climerRecord >= 140 && nextStpe == 'down'){
-            playerNewX = -1460;
-            playerNewY = 20;
+            fntA.player.src = 'img/player/down.png';
+            playerNewX = -380;
+            playerNewY = -30;
           }
         break;
         case 2:
@@ -675,7 +688,8 @@ $(document).ready(function(){
 
 
       // draw
-      
+      console.log('fntA.player.src:' + fntA.player.src + ',fntA.gameLevel:' + fntA.gameLevel + ',fntA.climerRecord:'+ fntA.climerRecord + ',xy:' + playerNewX + ',' + playerNewY );
+
       ctx0.drawImage(fntA.image0,newX,newY,360,912);
       
       ctx0.drawImage(fntA.player,playerNewX,playerNewY,1800,480);

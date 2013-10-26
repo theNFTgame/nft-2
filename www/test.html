@@ -77,7 +77,9 @@ p {margin:0;}
 
 
 .theclimer { display: none; 
-  background: url(img/player/g1_ok.png) , 
+  background: 
+  url(img/player/g0.png), 
+  url(img/player/g1_ok.png), 
   url(img/player/g2_ok.png),
   url(img/player/g3_ok.png),
   url(img/player/g4_ok.png),
@@ -87,6 +89,7 @@ p {margin:0;}
   url(img/player/g3_down.png),
   url(img/player/g4_down.png),
   url(img/player/g5_down.png),
+  url(img/player/down.png),
   url(img/icon_power.png);
 }
 
@@ -100,7 +103,7 @@ $(window).load(function(){
     fntA.image0 = new Image();
     fntA.image0.src = 'img/map/map01.jpg';
     fntA.player = new Image();
-    fntA.player.src = 'img/player/g2_ok.png';
+    fntA.player.src = 'img/player/g0.png';
     fntA.iconPower = new Image();
     fntA.iconPower.src = 'img/icon_power.png';
     fntA.gameLevel = 1;
@@ -177,153 +180,188 @@ var cancelRAF = window.cancelAnimationFrame ||
       animate(myRectangle, canvas, context, startTime)
       // wait one second before starting animation
 
-function ClimerAnimate(event) {
-
+function ClimerAnimate() {
+      fntA.climerRuning = true;
       // clear
       ctx0.clearRect(0, 0, canvas.width, canvas.height);
+
+      var nextStpe = fntA.thisStpe;
       // update
-      if(!event){
-        fntA.player.src = 'img/player/g'+ fntA.gameLevel+'_down.png';
-      }else{
-        fntA.player.src = 'img/player/g'+ fntA.gameLevel+'_ok.png';
+      // if(nextStpe == 'down'){
+      //   fntA.player.src = 'img/player/g'+ fntA.gameLevel+'_down.png';
+      // }else if( nextStpe == 'ok'){
+      //   fntA.player.src = 'img/player/g'+ fntA.gameLevel+'_ok.png';
+      //   if(fntA.gameLevel == 5){
+      //     fntA.gameFinish = true;
+      //   }
+      // }
+      fntA.iconPower = new Image();
+      fntA.player.src = 'img/player/g'+ fntA.gameLevel+'_ok.png';
+      if(fntA.gameLevel == 5){
+        fntA.gameFinish = true;
       }
       
       // fntA.player.src = 'img/player/g2_ok.png';
 
-      console.log('fntA.player.src:' + fntA.player.src + ',fntA.gameLevel:' + fntA.gameLevel);
+     
 
-      var newY = 0 , newX = -10; //fntA.defaultY + ( fntA.ClimerAniStep - fntA.ClimerAniMove + 1) ;
-      fntA.ClimerAniMove = fntA.ClimerAniMove - 1;
-      playerNewY = -60;
+      var newY = 0 , newX = -10 ,playerNewX = -20 ,playerNewY = -60; //fntA.defaultY + ( fntA.ClimerAniStep - fntA.ClimerAniMove + 1) ;
+      fntA.ClimerAniMove = fntA.ClimerAniMove - 0.35;
       // in ms
       switch (fntA.gameLevel) {
         case 1:
-          if(fntA.climerRecord < 18 && fntA.climerRecord >= 0){
+          if(fntA.climerRecord < 60 && fntA.climerRecord >= 0){
             playerNewX = -20;
             newY = -436;
           }
-          if(fntA.climerRecord >= 18 && fntA.climerRecord < 37){
+          if(fntA.climerRecord >= 60 && fntA.climerRecord < 80){
             playerNewX = -380;
             playerNewY = -50;
             newY = -425;
           }
-          if(fntA.climerRecord >= 37 && fntA.climerRecord < 60){
+          if(fntA.climerRecord >= 80 && fntA.climerRecord < 120){
             playerNewX = -740;
             playerNewY = -40;
             newY = -388;
           }
-          if(fntA.climerRecord >= 60 && fntA.climerRecord < 80){
+          if(fntA.climerRecord >= 120 ){
             playerNewX = -1100;
             playerNewY = -40;
             newY = -388;
+            if(nextStpe == 'down'){
+              fntA.iconPower = new Image();
+              fntA.player.src = 'img/player/down.png';
+              playerNewX = -20;
+              playerNewY = -50;
+            }
+          }
+          if(fntA.climerRecord >= 140 && nextStpe == 'down'){
+            fntA.player.src = 'img/player/down.png';
+            playerNewX = -380;
+            playerNewY = -50;
           }
         break;
         case 2:
-          if(fntA.climerRecord < 18 && fntA.climerRecord >= 0){
+          if(fntA.climerRecord < 60 && fntA.climerRecord >= 0){
             playerNewX = -20;
             newY = -388;
           }
-          if(fntA.climerRecord >= 18 && fntA.climerRecord < 37){
+          if(fntA.climerRecord >= 60 && fntA.climerRecord < 80){
             playerNewX = -380;
             playerNewY = -50;
             newY = -388;
           }
-          if(fntA.climerRecord >= 37 && fntA.climerRecord < 55){
+          if(fntA.climerRecord >= 80 && fntA.climerRecord < 120){
             playerNewX = -740;
             playerNewY = -20;
             newY = -298;
           }
-          if(fntA.climerRecord >= 55 && fntA.climerRecord < 80){
+          if(fntA.climerRecord >= 120 ){
             playerNewX = -1100;
             playerNewY = -20;
             newY = -296;
           }
+          if(fntA.climerRecord >= 140  && nextStpe == 'down'){
+            playerNewX = -1460;
+            playerNewY = 20;
+          }
         break;
         case 3:
-          if(fntA.climerRecord < 18 && fntA.climerRecord >= 0){
+          if(fntA.climerRecord < 60 && fntA.climerRecord >= 0){
             playerNewX = -20;
             playerNewY = -30;
             newY = -296;
             newX = -20;
           }
-          if(fntA.climerRecord >= 18 && fntA.climerRecord < 37){
+          if(fntA.climerRecord >= 60 && fntA.climerRecord < 80){
             playerNewX = -380;
             playerNewY = -30;
             newY = -270;
             newX = -20;
           }
-          if(fntA.climerRecord >= 37 && fntA.climerRecord < 55){
+          if(fntA.climerRecord >= 80 && fntA.climerRecord < 120){
             playerNewX = -740;
             playerNewY = -20;
             newY = -240;
             newX = -26;
           }
-          if(fntA.climerRecord >= 55 && fntA.climerRecord < 80){
+          if(fntA.climerRecord >= 120 ){
             playerNewX = -1096;
             playerNewY = -20;
             newY = -240;
             newX = -30;
           }
+          if(fntA.climerRecord >= 140  && nextStpe == 'down'){
+            playerNewX = -1460;
+            playerNewY = 20;
+          }
         break;
         case 4:
-          if(fntA.climerRecord < 18 && fntA.climerRecord >= 0){
+          if(fntA.climerRecord < 60 && fntA.climerRecord >= 0){
             playerNewX = 0;
             playerNewY = -30;
             newY = -236;
             newX = -20;
           }
-          if(fntA.climerRecord >= 18 && fntA.climerRecord < 37){
+          if(fntA.climerRecord >= 60 && fntA.climerRecord < 80){
             playerNewX = -360;
             playerNewY = -30;
             newY = -222;
             newX = -20;
           }
-          if(fntA.climerRecord >= 37 && fntA.climerRecord < 55){
+          if(fntA.climerRecord >= 80 && fntA.climerRecord < 120){
             playerNewX = -720;
             playerNewY = -20;
             newY = -212;
             newX = -30;
           }
-          if(fntA.climerRecord >= 55 && fntA.climerRecord < 80){
+          if(fntA.climerRecord >= 120 ){
             playerNewX = -1076;
             playerNewY = -20;
             newY = -210;
             newX = -38;
           }
+          if(fntA.climerRecord >= 140  && nextStpe == 'down'){
+            playerNewX = -1460;
+            playerNewY = 20;
+          }
         break;
         case 5:
-          if(fntA.climerRecord < 18 && fntA.climerRecord >= 0){
+          if(fntA.climerRecord < 60 && fntA.climerRecord >= 0){
             playerNewX = -20;
             playerNewY = -30;
             newY = -186;
             newX = -40;
           }
-          if(fntA.climerRecord >= 18 && fntA.climerRecord < 37){
+          if(fntA.climerRecord >= 60 && fntA.climerRecord < 80){
             playerNewX = -380;
             playerNewY = -30;
             newY = -180;
             newX = -40;
           }
-          if(fntA.climerRecord >= 37 && fntA.climerRecord < 55){
+          if(fntA.climerRecord >= 80 && fntA.climerRecord < 120){
             playerNewX = -740;
             playerNewY = -27;
             newY = -160;
             newX = -40;
           }
-          if(fntA.climerRecord >= 55 && fntA.climerRecord < 80){
+          if(fntA.climerRecord >= 125 ){
             playerNewX = -1066;
             playerNewY = -27;
             newY = -150;
             newX = -30;
           }
+          if(fntA.climerRecord >= 140  && nextStpe == 'down'){
+            playerNewX = -1460;
+            playerNewY = 20;
+          }
         break;
       }
 
 
-
-
       // draw
-      
+      console.log('fntA.player.src:' + fntA.player.src + ',fntA.gameLevel:' + fntA.gameLevel + ',fntA.climerRecord:'+ fntA.climerRecord + ',xy:' + playerNewX + ',' + playerNewY );
+
       ctx0.drawImage(fntA.image0,newX,newY,360,912);
       
       ctx0.drawImage(fntA.player,playerNewX,playerNewY,1800,480);
@@ -371,10 +409,18 @@ $(".pause").on("click", function(){
 $('.play').on("click", function(){
   fntA.ClimerAniMove = fntA.ClimerAniStep;
   fntA.climerRecord = 0;
+  fntA.thisStpe = 'down';
     ClimerAnimate();
     
   });
 
+$('.play2').on("click", function(){
+  fntA.ClimerAniMove = fntA.ClimerAniStep;
+  fntA.climerRecord = 0;
+  fntA.thisStpe = 'ok';
+    ClimerAnimate();
+    
+  });
 ctx0.drawImage(fntA.image0,-10,-446,360,912);
 ctx0.drawImage(fntA.player,-20,-60,1800,480);
 
@@ -385,6 +431,8 @@ ctx0.drawImage(fntA.player,-20,-60,1800,480);
 
 </head>
 <body>
+  <a class="btn play" href="#">play down</a>
+  <a class="btn play2" href="#">play ok</a>
 <div class="map">
   <canvas id="mapCanvas" width="320" height="474"></canvas>
   <div class="theclimer"></div>

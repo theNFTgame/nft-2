@@ -202,17 +202,19 @@ ul{
 
 .theclimer { display: none; width: 0; height: 0; overflow: hidden;
   background: 
-      url(img/player/g1_ok.png) , 
-      url(img/player/g2_ok.png),
-      url(img/player/g3_ok.png),
-      url(img/player/g4_ok.png),
-      url(img/player/g5_ok.png),
-      url(img/player/g1_down.png),
-      url(img/player/g2_down.png),
-      url(img/player/g3_down.png),
-      url(img/player/g4_down.png),
-      url(img/player/g5_down.png),
-      url(img/icon_power.png);
+      url(../img/player/g1_ok.png) , 
+      url(../img/player/g2_ok.png),
+      url(../img/player/g3_ok.png),
+      url(../img/player/g4_ok.png),
+      url(../img/player/g5_ok.png),
+      url(../img/player/g1_down.png),
+      url(../img/player/g2_down.png),
+      url(../img/player/g3_down.png),
+      url(../img/player/g4_down.png),
+      url(../img/player/g5_down.png),
+      url(../img/player/down.png),
+      url(../img/player/g0.png),
+      url(../img/icon_power.png);
 }
 
 
