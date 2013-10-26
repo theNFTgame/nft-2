@@ -27,7 +27,7 @@ p {margin:0;}
     padding:0;
 }
 .btn {
-    margin:30px;
+    margin:10px;
   -moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
   -webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
   box-shadow:inset 0px 1px 0px 0px #ffffff;
@@ -232,13 +232,13 @@ function ClimerAnimate() {
               fntA.iconPower = new Image();
               fntA.player.src = 'img/player/down.png';
               playerNewX = -20;
-              playerNewY = -50;
+              playerNewY = -80;
             }
           }
           if(fntA.climerRecord >= 140 && nextStpe == 'down'){
             fntA.player.src = 'img/player/down.png';
             playerNewX = -380;
-            playerNewY = -50;
+            playerNewY = -30;
           }
         break;
         case 2:
@@ -260,10 +260,17 @@ function ClimerAnimate() {
             playerNewX = -1100;
             playerNewY = -20;
             newY = -296;
+            if(nextStpe == 'down'){
+              fntA.iconPower = new Image();
+              fntA.player.src = 'img/player/down.png';
+              playerNewX = -20;
+              playerNewY = -80;
+            }
           }
-          if(fntA.climerRecord >= 140  && nextStpe == 'down'){
-            playerNewX = -1460;
-            playerNewY = 20;
+          if(fntA.climerRecord >= 140 && nextStpe == 'down'){
+            fntA.player.src = 'img/player/down.png';
+            playerNewX = -380;
+            playerNewY = -30;
           }
         break;
         case 3:
@@ -290,10 +297,17 @@ function ClimerAnimate() {
             playerNewY = -20;
             newY = -240;
             newX = -30;
+            if(nextStpe == 'down'){
+              fntA.iconPower = new Image();
+              fntA.player.src = 'img/player/down.png';
+              playerNewX = -20;
+              playerNewY = -80;
+            }
           }
-          if(fntA.climerRecord >= 140  && nextStpe == 'down'){
-            playerNewX = -1460;
-            playerNewY = 20;
+          if(fntA.climerRecord >= 140 && nextStpe == 'down'){
+            fntA.player.src = 'img/player/down.png';
+            playerNewX = -380;
+            playerNewY = -30;
           }
         break;
         case 4:
@@ -320,10 +334,17 @@ function ClimerAnimate() {
             playerNewY = -20;
             newY = -210;
             newX = -38;
+            if(nextStpe == 'down'){
+              fntA.iconPower = new Image();
+              fntA.player.src = 'img/player/down.png';
+              playerNewX = -20;
+              playerNewY = -80;
+            }
           }
-          if(fntA.climerRecord >= 140  && nextStpe == 'down'){
-            playerNewX = -1460;
-            playerNewY = 20;
+          if(fntA.climerRecord >= 140 && nextStpe == 'down'){
+            fntA.player.src = 'img/player/down.png';
+            playerNewX = -380;
+            playerNewY = -30;
           }
         break;
         case 5:
@@ -350,10 +371,17 @@ function ClimerAnimate() {
             playerNewY = -27;
             newY = -150;
             newX = -30;
+            if(nextStpe == 'down'){
+              fntA.iconPower = new Image();
+              fntA.player.src = 'img/player/down.png';
+              playerNewX = -20;
+              playerNewY = -80;
+            }
           }
-          if(fntA.climerRecord >= 140  && nextStpe == 'down'){
-            playerNewX = -1460;
-            playerNewY = 20;
+          if(fntA.climerRecord >= 140 && nextStpe == 'down'){
+            fntA.player.src = 'img/player/down.png';
+            playerNewX = -380;
+            playerNewY = -30;
           }
         break;
       }
@@ -431,6 +459,10 @@ ctx0.drawImage(fntA.player,-20,-60,1800,480);
 
 </head>
 <body>
+  <div class="timebg">
+    <canvas id="myCanvas" width="320" height="50"></canvas>
+
+</div>
   <a class="btn play" href="#">play down</a>
   <a class="btn play2" href="#">play ok</a>
 <div class="map">
@@ -445,10 +477,6 @@ ctx0.drawImage(fntA.player,-20,-60,1800,480);
 
 <a class="btn play" href="#">play</a>
 
-  <div class="timebg">
-    <canvas id="myCanvas" width="320" height="50"></canvas>
-
-</div>
 </body>
 
 

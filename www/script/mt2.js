@@ -83,30 +83,21 @@ $(document).ready(function(){
     },
     runfunc : function (action){
       // console.log('fntA.playerId=' + fntA.playerId);
-      if(!fntA.playerId){
-        router.navigate('index');
-        showFrame('homepage');
-        showSubFrame('homepage','loginbox');
-        $('.iframbox iframe').attr('src','http://www.quyeba.com/explorer/#_challenge');
-        _smq.push(['pageview', '/login', '登陆']);
-      }else{
+      // if(!fntA.playerId){
+      //   router.navigate('index');
+      //   showFrame('homepage');
+      //   showSubFrame('homepage','loginbox');
+      //   $('.iframbox iframe').attr('src','http://www.quyeba.com/explorer/#_challenge');
+      //   _smq.push(['pageview', '/login', '登陆']);
+      // }else{
          // console.log(action);
         if(action == 'replay'){
-          fntA.ClimerOn = false;
-          fntA.TimerOn = false;
-          fntA.gameLevel = 1;
-          fntA.shakerecord = 0;
-          fntA.ClimerAniStep = 60;
-          fntA.ClimerAniMove = fntA.ClimerAniStep;
-          fntA.defaultY  = -446;
-          fntA.StepStarted = false;
-          fntA.gameFinish =  false;
-          fntA.climerRuning = false;
-          fntA.period = 2000;
-          fntA.climerRecord = 0;
-          fntA.ClimerAniAllMove = 0;
           // router.navigate('run');
-          $('.gamemask .countdown').html('');
+          console.log('replay call fntClimer');
+          // fntA.gameOn = null;
+          delete fntA.gameOn;
+          fntA.player = new Image();
+          fntA.player.src = 'img/player/g0.png';
           _smq.push(['pageview', '/replay', '再战一次']);
         }
         showSubFrame('runbox','qrcodebox');
@@ -117,8 +108,8 @@ $(document).ready(function(){
         }
         $('.iframbox').html('');
         //$('.iframbox iframe').attr('src','');
-        _smq.push(['pageview', '/run', '跑步']);
-      }
+        _smq.push(['pageview', '/run', '攀岩']);
+      // }
     },
     renderError : function(error) {  
       //  console.log('URL错误, 错误信息: ' + error); 
@@ -523,7 +514,7 @@ $(document).ready(function(){
       //     fntA.gameFinish = true;
       //   }
       // }
-      fntA.iconPower = new Image();
+      fntA.player = new Image();
       fntA.player.src = 'img/player/g'+ fntA.gameLevel+'_ok.png';
       if(fntA.gameLevel == 5){
         fntA.gameFinish = true;
@@ -557,7 +548,7 @@ $(document).ready(function(){
             playerNewY = -40;
             newY = -388;
             if(nextStpe == 'down'){
-              fntA.iconPower = new Image();
+              fntA.player = new Image();
               fntA.player.src = 'img/player/down.png';
               playerNewX = -20;
               playerNewY = -80;
@@ -588,10 +579,17 @@ $(document).ready(function(){
             playerNewX = -1100;
             playerNewY = -20;
             newY = -296;
+            if(nextStpe == 'down'){
+              fntA.player = new Image();
+              fntA.player.src = 'img/player/down.png';
+              playerNewX = -20;
+              playerNewY = -80;
+            }
           }
-          if(fntA.climerRecord >= 140  && nextStpe == 'down'){
-            playerNewX = -1460;
-            playerNewY = 20;
+          if(fntA.climerRecord >= 140 && nextStpe == 'down'){
+            fntA.player.src = 'img/player/down.png';
+            playerNewX = -380;
+            playerNewY = -30;
           }
         break;
         case 3:
@@ -618,10 +616,17 @@ $(document).ready(function(){
             playerNewY = -20;
             newY = -240;
             newX = -30;
+            if(nextStpe == 'down'){
+              fntA.player = new Image();
+              fntA.player.src = 'img/player/down.png';
+              playerNewX = -20;
+              playerNewY = -80;
+            }
           }
-          if(fntA.climerRecord >= 140  && nextStpe == 'down'){
-            playerNewX = -1460;
-            playerNewY = 20;
+          if(fntA.climerRecord >= 140 && nextStpe == 'down'){
+            fntA.player.src = 'img/player/down.png';
+            playerNewX = -380;
+            playerNewY = -30;
           }
         break;
         case 4:
@@ -648,10 +653,17 @@ $(document).ready(function(){
             playerNewY = -20;
             newY = -210;
             newX = -38;
+            if(nextStpe == 'down'){
+              fntA.player = new Image();
+              fntA.player.src = 'img/player/down.png';
+              playerNewX = -20;
+              playerNewY = -80;
+            }
           }
-          if(fntA.climerRecord >= 140  && nextStpe == 'down'){
-            playerNewX = -1460;
-            playerNewY = 20;
+          if(fntA.climerRecord >= 140 && nextStpe == 'down'){
+            fntA.player.src = 'img/player/down.png';
+            playerNewX = -380;
+            playerNewY = -30;
           }
         break;
         case 5:
@@ -678,10 +690,17 @@ $(document).ready(function(){
             playerNewY = -27;
             newY = -150;
             newX = -30;
+            if(nextStpe == 'down'){
+              fntA.player = new Image();
+              fntA.player.src = 'img/player/down.png';
+              playerNewX = -20;
+              playerNewY = -80;
+            }
           }
-          if(fntA.climerRecord >= 140  && nextStpe == 'down'){
-            playerNewX = -1460;
-            playerNewY = 20;
+          if(fntA.climerRecord >= 140 && nextStpe == 'down'){
+            fntA.player.src = 'img/player/down.png';
+            playerNewX = -380;
+            playerNewY = -30;
           }
         break;
       }

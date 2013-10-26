@@ -98,7 +98,7 @@ ul{
 
 
 /**/
-.runningbox .map { width: 320px; height: 474px; position: absolute; top:26px; right: 30px; }
+.runningbox .map { width: 320px; height: 474px; position: absolute; top:26px; right: 30px; background-color: black;}
 .runningbox .map canvas { display: block; float: left;}
 
 #mapCanvas { /*background: url(../img/map/map01.jpg) center bottom no-repeat;*/}
