@@ -1,3 +1,27 @@
+(function () {
+  var lastTime = 0;
+  var vendors = ['ms', 'moz', 'webkit', 'o'];
+  for(var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
+    window.requestAnimationFrame = window[vendors[x] + 'RequestAnimationFrame'];
+    window.cancelAnimationFrame = window[vendors[x] + 'CancelAnimationFrame'] || window[vendors[x] + 'CancelRequestAnimationFrame'];
+  }
+  if(!window.requestAnimationFrame)
+    window.requestAnimationFrame = function (callback, element) {
+      var currTime = new Date().getTime();
+      var timeToCall = Math.max(0, 16 - (currTime - lastTime));
+      var id = window.setTimeout(function () {
+        callback(currTime + timeToCall);
+      },
+      timeToCall);
+      lastTime = currTime + timeToCall;
+      return id;
+  };
+  if(!window.cancelAnimationFrame)
+    window.cancelAnimationFrame = function (id) {
+      clearTimeout(id);
+  };
+}());
+
 var fntA = new Object();
   function showFrame(framename) {
     if(!framename){ framename = 'homepage'}
@@ -51,6 +75,9 @@ $(document).ready(function(){
         fntA.playerId = echoUid;
         fntA.playername = echoName;
         //router.navigate('run');
+        $('.playerinfoa .playername').html(fntA.playerName);
+        $('.playerinfoa img').attr('src',fntA.playerAvatar);
+
         showSubFrame('runbox','qrcodebox');
         // fntRun();
         if(!fntA.period){
@@ -156,7 +183,7 @@ $(document).ready(function(){
   }
 
   function postGameRecord(id,name,record,result){ 
-    var postData = 'game_type=0&gamename=game2score='+record + '&user_id=' + id + '&user_name=' + name + '&result=' +result ;
+    var postData = 'game_type=0&gamename=game2&score='+record + '&user_id=' + id + '&user_name=' + name + '&result=' +result ;
     //  console.log(postData);
     var tempIp = 'http://www.quyeba.com/event/explorerchallenge/'
     $.ajax({type:'POST',url: tempIp +'game/save',data:postData,
@@ -527,9 +554,6 @@ $(document).ready(function(){
         fntA.gameFinish = true;
       }
       
-      // fntA.player.src = 'img/player/g2_ok.png';
-
-     
 
       var newY = 0 , newX = -10 ,playerNewX = -20 ,playerNewY = -60; //fntA.defaultY + ( fntA.ClimerAniStep - fntA.ClimerAniMove + 1) ;
       fntA.ClimerAniMove = fntA.ClimerAniMove - 0.35;
@@ -555,7 +579,7 @@ $(document).ready(function(){
             playerNewY = -52;
             newY = -388;
             if(nextStpe == 'down'){
-              fntA.iconPower = new Image();
+              fntA.player = new Image();
               fntA.player.src = 'img/player/down.png';
               playerNewX = -20;
               playerNewY = -80;
@@ -587,7 +611,7 @@ $(document).ready(function(){
             playerNewY = -20;
             newY = -296;
             if(nextStpe == 'down'){
-              fntA.iconPower = new Image();
+              fntA.player = new Image();
               fntA.player.src = 'img/player/down.png';
               playerNewX = -20;
               playerNewY = -80;
@@ -624,7 +648,7 @@ $(document).ready(function(){
             newY = -240;
             newX = -30;
             if(nextStpe == 'down'){
-              fntA.iconPower = new Image();
+              fntA.player = new Image();
               fntA.player.src = 'img/player/down.png';
               playerNewX = -20;
               playerNewY = -80;
@@ -727,8 +751,12 @@ $(document).ready(function(){
         fntA.climerRecord = 0;
         if(fntA.gameLevel == 5){
           // fntA.gameFinish = true;
-          showSubMask('gamemask','winwithpoint');
-          fntA.gameResult = 'win';
+          if(nextStpe == 'down'){
+            fntA.gameResult = 'lost';
+          }else if(nextStpe == 'ok'){
+            // showSubMask('gamemask','winwithpoint');
+            fntA.gameResult = 'win';
+          }
           postGameRecord(fntA.playerId,fntA.playerName,fntA.allmoveA,fntA.gameResult);
           
         }else{

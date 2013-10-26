@@ -98,6 +98,30 @@ p {margin:0;}
 
 
 <script type='text/javascript'>//<![CDATA[ 
+(function () {
+  var lastTime = 0;
+  var vendors = ['ms', 'moz', 'webkit', 'o'];
+  for(var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
+    window.requestAnimationFrame = window[vendors[x] + 'RequestAnimationFrame'];
+    window.cancelAnimationFrame = window[vendors[x] + 'CancelAnimationFrame'] || window[vendors[x] + 'CancelRequestAnimationFrame'];
+  }
+  if(!window.requestAnimationFrame)
+    window.requestAnimationFrame = function (callback, element) {
+      var currTime = new Date().getTime();
+      var timeToCall = Math.max(0, 16 - (currTime - lastTime));
+      var id = window.setTimeout(function () {
+        callback(currTime + timeToCall);
+      },
+      timeToCall);
+      lastTime = currTime + timeToCall;
+      return id;
+  };
+  if(!window.cancelAnimationFrame)
+    window.cancelAnimationFrame = function (id) {
+      clearTimeout(id);
+  };
+}());
+
 $(window).load(function(){
   var fntA = new Object();
     fntA.image0 = new Image();
@@ -195,7 +219,7 @@ function ClimerAnimate() {
       //     fntA.gameFinish = true;
       //   }
       // }
-      fntA.iconPower = new Image();
+      fntA.player = new Image();
       fntA.player.src = 'img/player/g'+ fntA.gameLevel+'_ok.png';
       if(fntA.gameLevel == 5){
         fntA.gameFinish = true;
@@ -229,7 +253,7 @@ function ClimerAnimate() {
             playerNewY = -52;
             newY = -388;
             if(nextStpe == 'down'){
-              fntA.iconPower = new Image();
+              fntA.player = new Image();
               fntA.player.src = 'img/player/down.png';
               playerNewX = -20;
               playerNewY = -80;
@@ -261,7 +285,7 @@ function ClimerAnimate() {
             playerNewY = -20;
             newY = -296;
             if(nextStpe == 'down'){
-              fntA.iconPower = new Image();
+              fntA.player = new Image();
               fntA.player.src = 'img/player/down.png';
               playerNewX = -20;
               playerNewY = -80;
@@ -298,7 +322,7 @@ function ClimerAnimate() {
             newY = -240;
             newX = -30;
             if(nextStpe == 'down'){
-              fntA.iconPower = new Image();
+              fntA.player = new Image();
               fntA.player.src = 'img/player/down.png';
               playerNewX = -20;
               playerNewY = -80;
@@ -335,7 +359,7 @@ function ClimerAnimate() {
             newY = -210;
             newX = -38;
             if(nextStpe == 'down'){
-              fntA.iconPower = new Image();
+              fntA.player = new Image();
               fntA.player.src = 'img/player/down.png';
               playerNewX = -20;
               playerNewY = -80;
