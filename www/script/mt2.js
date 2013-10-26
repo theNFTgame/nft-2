@@ -466,7 +466,7 @@ $(document).ready(function(){
         case fntA.key + "_changebg":
           stopAnimation();
           // console.log('fntA.ClimerOn:' +fntA.ClimerOn + ',fntA.TimerOn:' + fntA.TimerOn + ',fntA.UpdateTime:' + fntA.UpdateTime);
-          if(fntA.ClimerOn){
+          if(fntA.ClimerOn && fntA.climerRecord==0 && !fntA.gameFinish){
             fntA.TimerOn = false;
             var g = canvas.width/2 - (canvas.width/10)*(fntA.gameLevel-1);
             console.log(fntA.x +',goal:' + g + ',canvas.width:'+ canvas.width);
@@ -550,7 +550,7 @@ $(document).ready(function(){
       // }
       fntA.player = new Image();
       fntA.player.src = 'img/player/g'+ fntA.gameLevel+'_ok.png';
-      if(fntA.gameLevel == 5){
+      if(fntA.gameLevel == 5 || nextStpe =='down'){
         fntA.gameFinish = true;
       }
       
