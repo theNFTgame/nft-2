@@ -96,8 +96,15 @@ $(document).ready(function(){
           console.log('replay call fntClimer');
           // fntA.gameOn = null;
           delete fntA.gameOn;
+          fntA.gameFinish = false;
+          fntA.ClimerOn = false;
+          fntA.gameLevel = 1;
           fntA.player = new Image();
+          fntA.gameResult = 'replay';
+          fntA.ClimerAniMove = fntA.ClimerAniStep;
+          $('#myCanvas').css('background-position','0px 0px');
           fntA.player.src = 'img/player/g0.png';
+          router.navigate('');
           _smq.push(['pageview', '/replay', '再战一次']);
         }
         showSubFrame('runbox','qrcodebox');
@@ -389,14 +396,14 @@ $(document).ready(function(){
           stopAnimation();
           // fntA.ClimerOn = false;
           fntA.TimerOn = false;
-          console.log( 'fntA.StepStarted :'+ fntA.StepStarted + ', fntA.gameFinish: ' + fntA.gameFinish  + ',fntA.climerRecord:' + fntA.climerRecord + ',fntA.climerRuning:' + fntA.climerRuning);
-          if((!fntA.StepStarted || !fntA.gameFinish) && fntA.climerRecord !== 0 && !fntA.climerRuning){
-            console.log( ' doUpdateClimerTime call down' );
+          console.log( 'fntA.StepStarted :'+ fntA.StepStarted + ', fntA.gameFinish: ' + fntA.gameFinish  + ',fntA.climerRecord:' + fntA.climerRecord + ',fntA.climerRuning:' + fntA.climerRuning + ',fntA.gameResult:' + fntA.gameResult);
+          if((!fntA.StepStarted || !fntA.gameFinish) && fntA.climerRecord == 0 && !fntA.climerRuning && fntA.gameResult !=='lost'){
+            console.log( 'level 2~5 doUpdateClimerTime call down' );
             fntA.thisStpe = 'down';
             ClimerAnimate();
           }
           if(fntA.gameLevel == 1 && !fntA.StepStarted && !fntA.climerRuning){
-            console.log( ' doUpdateClimerTime call down' );
+            console.log( 'level=1 doUpdateClimerTime call down' );
             fntA.thisStpe = 'down';
             ClimerAnimate();
           }
@@ -544,11 +551,11 @@ $(document).ready(function(){
             newY = -388;
           }
           if(fntA.climerRecord >= 120 ){
-            playerNewX = -1100;
-            playerNewY = -40;
+            playerNewX = -1095;
+            playerNewY = -52;
             newY = -388;
             if(nextStpe == 'down'){
-              fntA.player = new Image();
+              fntA.iconPower = new Image();
               fntA.player.src = 'img/player/down.png';
               playerNewX = -20;
               playerNewY = -80;
@@ -580,7 +587,7 @@ $(document).ready(function(){
             playerNewY = -20;
             newY = -296;
             if(nextStpe == 'down'){
-              fntA.player = new Image();
+              fntA.iconPower = new Image();
               fntA.player.src = 'img/player/down.png';
               playerNewX = -20;
               playerNewY = -80;
@@ -594,8 +601,8 @@ $(document).ready(function(){
         break;
         case 3:
           if(fntA.climerRecord < 60 && fntA.climerRecord >= 0){
-            playerNewX = -20;
-            playerNewY = -30;
+            playerNewX = -23;
+            playerNewY = -25;
             newY = -296;
             newX = -20;
           }
@@ -617,7 +624,7 @@ $(document).ready(function(){
             newY = -240;
             newX = -30;
             if(nextStpe == 'down'){
-              fntA.player = new Image();
+              fntA.iconPower = new Image();
               fntA.player.src = 'img/player/down.png';
               playerNewX = -20;
               playerNewY = -80;
@@ -685,7 +692,7 @@ $(document).ready(function(){
             newY = -160;
             newX = -40;
           }
-          if(fntA.climerRecord >= 125 ){
+          if(fntA.climerRecord >= 120 ){
             playerNewX = -1066;
             playerNewY = -27;
             newY = -150;
@@ -717,6 +724,7 @@ $(document).ready(function(){
       if(fntA.ClimerAniMove < 0){
         stopAnimationClimer();
         fntA.StepStarted = true;
+        fntA.climerRecord = 0;
         if(fntA.gameLevel == 5){
           // fntA.gameFinish = true;
           showSubMask('gamemask','winwithpoint');
