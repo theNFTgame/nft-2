@@ -346,7 +346,7 @@ $(document).ready(function(){
     fntA.StepStarted = false;
     fntA.gameFinish =  false;
     fntA.climerRuning = false;
-    fntA.period = 800; // icon speed
+    fntA.period = 500; // icon speed
     fntA.player = new Image();
     fntA.player.src = 'img/player/g0.png';
     fntA.climerRecord = 0;
@@ -457,6 +457,7 @@ $(document).ready(function(){
               showSubFrame('runbox','rundivbox');
               fntA.gameOn = true;
               ctx0.drawImage(fntA.image0,-10,-436,360,912);
+              fntA.player.src = 'img/player/g0.png';
               ctx0.drawImage(fntA.player,20,-40,320,504);
               countdownNewTime(2);
             }
@@ -468,7 +469,7 @@ $(document).ready(function(){
           // console.log('fntA.ClimerOn:' +fntA.ClimerOn + ',fntA.TimerOn:' + fntA.TimerOn + ',fntA.UpdateTime:' + fntA.UpdateTime);
           if(fntA.ClimerOn && fntA.climerRecord==0 && !fntA.gameFinish){
             fntA.TimerOn = false;
-            var g = canvas.width/2 - (canvas.width/10)*(fntA.gameLevel-1);
+            var g = canvas.width/2 - (canvas.width/10)*(fntA.gameLevel-1) + 4;
             console.log(fntA.x +',goal:' + g + ',canvas.width:'+ canvas.width);
             // fntA.gameLevel 
             if(fntA.x< g) {
