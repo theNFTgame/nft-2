@@ -405,7 +405,7 @@ $(document).ready(function(){
     function animate() {
       // update
       var time = (new Date()).getTime() - startTime;
-      var amplitude = 160;
+      var amplitude = 130;
 
       // in ms
       var period = fntA.period;
@@ -689,6 +689,7 @@ $(document).ready(function(){
     }
     function pauseAnimation(e) {
         // use the requestID to cancel the requestAnimationFrame call
+        fntA.gameLevel = 0;
         animate();
     }
     //debug;
@@ -707,6 +708,63 @@ $(document).ready(function(){
         pauseAnimation();
         $("body").append('<p>' + fntA.x);
       });
+    $(".touch").on("click", function(){
+      stopAnimation();
+      console.log(fntA.x);
+      if(fntA.gameLevel == 0){
+        //check G
+        var g = canvas.width/2;
+        console.log(fntA.x +',goal:' + g + ',canvas.width:'+ canvas.width);
+        if(fntA.x< g) {
+          console.log('enter');
+          setTimeout(function () {
+            if(!fntA.gameOn){
+              showSubFrame('runbox','rundivbox');
+              showFrame('runbox');
+              fntA.gameOn = true;
+              countdownNewTime(2);
+              var canvas = document.getElementById('myCanvas');
+              var context = canvas.getContext('2d');
+              var mapcanvas =  document.getElementById('mapCanvas');
+              var ctx0 = mapcanvas.getContext('2d');
+              ctx0.drawImage(fntA.image0,-10,-436,360,912);
+              fntA.player.src = 'img/player/g0.png';
+              ctx0.drawImage(fntA.player,20,-40,320,504);
+            }
+          }, 100);
+        }else{
+          animate();
+        }
+      }else{
+        if(fntA.ClimerOn && fntA.climerRecord==0 && !fntA.gameFinish){
+            fntA.TimerOn = false;
+            var g = canvas.width/2 - (canvas.width/10)*(fntA.gameLevel-1) + 4;
+            console.log(fntA.x +',goal:' + g + ',canvas.width:'+ canvas.width);
+            // fntA.gameLevel 
+            if(fntA.x< g) {
+              console.log('You win this step!');
+              if(fntA.gameLevel<5){
+                // $('#myCanvas').css('background-position','0px -' + fntA.gameLevel*30 + 'px');
+                $('.gamenote span').removeClass().addClass('notes');
+              }
+              fntA.shakerecord = fntA.x;
+              fntA.climerRecord = 0;
+              fntA.thisStpe = 'ok';
+              ClimerAnimate();
+              // fntA.gameLevel = fntA.gameLevel + 1;
+            }else{
+              console.log('You lost!');
+              fntA.shakerecord = 0;
+              fntA.climerRecord = 0;
+              fntA.thisStpe = 'down';
+              ClimerAnimate();
+              // postGameRecord(fntA.playerId,fntA.playerName,fntA.x,fntA.gameResult);
+            }
+          }else{
+            console.log('Your time is out.');
+          }
+      }
+    });
     $(".connection").on("click", function(){
       // if(!fntA.startime){
         // showSubMask('gamemask');
@@ -717,6 +775,7 @@ $(document).ready(function(){
         fntA.ClimerOn = true;
       // }
     });
+    pauseAnimation();
 
   }//climer game
 
