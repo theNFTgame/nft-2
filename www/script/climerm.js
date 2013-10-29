@@ -84,9 +84,43 @@ $(document).ready(function(){
     climerfun : function(){
       console.log('climerfun'); 
       showFrame('runbox');
+      fntA.ClimerOn = false;
+      fntA.TimerOn = false;
+      fntA.image0 = new Image();
+      fntA.image0.src = 'img/map/map01.jpg';
+      fntA.iconPower = new Image();
+      fntA.iconPower.src = 'img/icon_power.png';
+      fntA.gameLevel = 1;
+      fntA.shakerecord = 0;
+      fntA.ClimerAniStep = 60;
+      fntA.ClimerAniMove = fntA.ClimerAniStep;
+      fntA.defaultY  = -446;
+      fntA.StepStarted = false;
+      fntA.gameFinish =  false;
+      fntA.climerRuning = false;
+      fntA.period = 500; // icon speed
+      fntA.player = new Image();
+      fntA.player.src = 'img/player/g0.png';
+      fntA.climerRecord = 0;
+      fntA.ClimerAniAllMove = 0;
+      var canvas = document.getElementById('myCanvas');
+      var context = canvas.getContext('2d');
+      var mapcanvas =  document.getElementById('mapCanvas');
+      var ctx0 = mapcanvas.getContext('2d');
+      ctx0.drawImage(fntA.image0,-10,-436,360,912);
+      fntA.player.src = 'img/player/g0.png';
+      ctx0.drawImage(fntA.player,20,-40,320,504);
     },
     replayfun : function(){
-
+      delete fntA.gameOn;
+      fntA.gameFinish = false;
+      fntA.ClimerOn = false;
+      fntA.gameLevel = 1;
+      fntA.player = new Image();
+      fntA.gameResult = 'replay';
+      fntA.ClimerAniMove = fntA.ClimerAniStep;
+      $('#myCanvas').css('background-position','0px 0px');
+      fntA.player.src = 'img/player/g0.png';
     },
     renderError : function(error) {  
       //  console.log('URL错误, 错误信息: ' + error); 
@@ -194,7 +228,10 @@ $(document).ready(function(){
     var context = canvas.getContext('2d');
     var mapcanvas =  document.getElementById('mapCanvas');
     var ctx0 = mapcanvas.getContext('2d');
-
+    //deafult
+    ctx0.drawImage(fntA.image0,-10,-436,360,912);
+    fntA.player.src = 'img/player/g0.png';
+    ctx0.drawImage(fntA.player,20,-40,320,504);
     
     var myRectangle = {
       x: fRandomBy(0,40),

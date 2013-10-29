@@ -84,9 +84,10 @@ body {
 .cp { color: #000; font-weight: bold; font-size: 13px; width: 162px; padding: 147px 0 0 76px; text-align: left;}
 .debuginfo { color: #fff;}
 
-.touchbox { display: none; width: 100%; height: 100%; margin: 0; position: absolute; top:0px; left:0px; z-index: 990; background:none;}
+.touchbox { display: block; width: 100%; height: 100%; margin: 0; position: absolute; top:0px; left:0px; z-index: 990; background:none;}
 .touchbox_l1 {display: none; }
 .touchbox_l2 {display: none; }
+.touch { display: block; width: 100%; height: 100%; margin: 0; position: absolute; top:0px; left:0px; z-index: 1000; background:url(../img/m/bg-touch.gif);}
 .horizontal {display: none; width: 100%; height: 100%; min-height: 320px; background: #1b1b1b; opacity: 0.9; position: absolute; bottom: 0; left: 0; padding-top:0; z-index: 9999; color: #fff; font-size: 140%; line-height: 40px; text-align: center;}
 .horizontal .content { padding-top: 100px;}
 @media screen and (min-width:360px) and (max-width:440px) {
