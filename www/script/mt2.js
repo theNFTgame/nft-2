@@ -470,6 +470,7 @@ $(document).ready(function(){
           if(fntA.ClimerOn && fntA.climerRecord==0 && !fntA.gameFinish){
             fntA.TimerOn = false;
             var g = canvas.width/2 - (canvas.width/10)*(fntA.gameLevel-1) + 4;
+            if(fntA.gameLevel==5){ g = g + 20; }
             console.log(fntA.x +',goal:' + g + ',canvas.width:'+ canvas.width);
             // fntA.gameLevel 
             if(fntA.x< g) {
