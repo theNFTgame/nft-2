@@ -6,7 +6,7 @@
     <title>TheNorthFace</title>
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0" />
-    <link rel="stylesheet" href="css/single.css" media="screen" type="text/css" />
+    <link rel="stylesheet" href="css/climerm.css" media="screen" type="text/css" />
     <script type="text/javascript">
       var _smq = _smq || [];
       _smq.push(['_setAccount', '18A1A3A5', new Date()]);
@@ -31,41 +31,19 @@
     </div>
     <div id="pagebody">  
       <section id="intro" class="clearfix frame homepage">
-<!--         <div class="subframe introbox">
-          <p>intro</p>
-          <a class="navlink linklevel" href="#/level">start game</a>
-        </div> -->
         <div class="subframe levelbox">
-          <p class="title notext">select level</p>
+          <p class="intro notext"></p>
           <div class="levelnav">
-            <a class="navlink linkshake level01 notext" href="#/shake/1"><span>level 1</span></a>
-            <a class="navlink linkshake level02 notext" href="#/shake/2"><span>level 2</span></a>
-            <a class="navlink linkshake level03 notext" href="#/shake/3"><span>level 3</span></a>
+            <a href="#/climer" class="connection">play</a>
           </div>
-          <p class="intro notext">intro</p>
-        </div>
-      </section> 
-      <section id="energy" class="clearfix frame energybox">
-        <div class="redbg"></div>
-        <div class="subframe introbox">
-          <div class="txt1 notext"></div>
-          <div class="txt2 notext"></div>
-          <div class="txt3 notext"></div>
-        </div>
-        <div class="subframe powerbox">
-          <div class="countdown">摇</div>
-          <a class="reload notext" href="#/repower"><span></span></a>
-          <div class="debuginfo" style="display:none"></div>
-        </div>
-        <div class="subframe readybox">
-          <a class="btn startrun notext">Start Run!</a>
-          <a class="reload notext" href="#/repower"><span></span></a>
-          <div class="debuginfo" style="display:none"></div>
+          <p class="text"></p>
         </div>
       </section>
       <section id="run" class="clearfix frame runbox">
         <div class="runningbox">
-          <div class="map"><canvas id="canvas" width="320" height="510"></canvas><canvas id="path1" width="320" height="462" style="display:none"></canvas></div>
+          <div class="map">
+            <canvas id="mapCanvas" width="320" height="474"></canvas>
+          </div>
           <div class="player"></div>
         </div> 
       </section>
@@ -98,6 +76,18 @@
       </section>
       <div class="maskbg"></div>
       <div class="logo"></div>
+      <div class="touchbox touchbox_l1">touchbox_l1</div>
+      <div class="touchbox touchbox_l2">
+        <div class="gamenote">
+          <span class="note1"></span>
+        </div>
+        <div class="light">
+          <span class="lite0"></span>
+        </div>
+        <div class="power">
+          <canvas id="myCanvas" width="340" height="29"></canvas>
+        </div>
+      </div>
     </div>
 
     <script type="text/javascript" src="script/lib/jquery-2.0.3.min.js"></script>
