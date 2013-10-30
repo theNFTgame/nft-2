@@ -64,6 +64,7 @@ $(document).ready(function(){
         'index' : 'levelfun', 
         'intro' : 'levelfun',
         'replay' : 'replayfun',
+        // 'replay' : 'levelfun',
         'level' : 'levelfun',
         'climer' : 'climerfun',
         'run':'runfun',
@@ -110,19 +111,36 @@ $(document).ready(function(){
       ctx0.drawImage(fntA.image0,-10,-436,360,912);
       fntA.player.src = 'img/player/g0.png';
       ctx0.drawImage(fntA.player,20,-40,320,504);
-      $(".connection").show();
-      $(".touch").hide();
+      
     },
     replayfun : function(){
+      console.log('replay');
       delete fntA.gameOn;
-      fntA.gameFinish = false;
-      fntA.ClimerOn = false;
-      fntA.gameLevel = 1;
-      fntA.player = new Image();
-      fntA.gameResult = 'replay';
-      fntA.ClimerAniMove = fntA.ClimerAniStep;
-      $('#myCanvas').css('background-position','0px 0px');
-      fntA.player.src = 'img/player/g0.png';
+      $('.touchbox').show();
+      $('.power').show();
+      // $('.light').show();
+      $(".connection").show();
+      
+      $('.touch').hide();
+      $('.recordbox').removeClass('recordwinbox').hide();
+      $('.maskbg').hide();
+      $('.mask').hide();
+      
+      
+      router.navigate('#/climer');
+    },
+    couponfun : function(){
+      $('.mask').hide();
+      $('.maskbg').show();
+      $('.couponbox').show();
+      $('.nocouponbox').hide();
+
+    },
+    nocouponfun : function() {
+      $('.mask').hide();
+      $('.maskbg').show();
+      $('.couponbox').hide();
+      $('.nocouponbox').show();
     },
     renderError : function(error) {  
       //  console.log('URL错误, 错误信息: ' + error); 
@@ -238,7 +256,7 @@ function postGameRewardSingle(record){
         console.log(json);
         $('.recordbox').show();
         $('.maskbg').show();
-        $('.logo').hide();
+        $('.touchbox').hide();
       //var jsdata = eval('('+json+')'); 
       //result: "success" 
       var jsdata = json;
@@ -339,6 +357,8 @@ function postGameRewardSingle(record){
       }
       if(num === 0) {
         showSubMask('touchbox','connection');
+        $('.power').show();
+        $('.light').show();
         console.log('show btn')
       }
     }
@@ -481,6 +501,10 @@ function postGameRewardSingle(record){
     function animate() {
       // update
       $('.power').show();
+      if(fntA.gameLevel!=0){
+        $('.light').show();
+      }
+      
       var time = (new Date()).getTime() - startTime;
       var amplitude = 130;
 
@@ -500,6 +524,7 @@ function postGameRewardSingle(record){
       fntA.requestId = window.requestAnimationFrame(animate);
     }
     function ClimerAnimate() {
+      $('.touchbox').hide();
       fntA.climerRuning = true;
       // clear
       ctx0.clearRect(0, 0, canvas.width, canvas.height);
@@ -722,7 +747,7 @@ function postGameRewardSingle(record){
           }else if(nextStpe == 'ok'){
             // showSubMask('gamemask','winwithpoint');
             fntA.gameResult = 'win';
-            
+            $('.recordbox').addClass('recordwinbox');
           }
           // postGameRecord(fntA.playerId,fntA.playerName,fntA.allmoveA,fntA.gameResult);
           postGameRewardSingle(fntA.gameResult);
@@ -734,6 +759,7 @@ function postGameRewardSingle(record){
             postGameRewardSingle(fntA.gameResult);
           }else if( nextStpe == 'ok'){
             // console.log('try for next stpe');
+            $('.touchbox').show();
             fntA.defaultY = newY;
             $('#myCanvas').css('background-position','0px -' + fntA.gameLevel*30 + 'px');
             $('.gamenote span').removeClass().addClass('noten');
@@ -803,6 +829,7 @@ function postGameRewardSingle(record){
               countdownNewTime(2);
               fntA.gameLevel = 1;
               $('.power').hide();
+              $('.light').hide();
               // var canvas = document.getElementById('myCanvas');
               // var context = canvas.getContext('2d');
               // var mapcanvas =  document.getElementById('mapCanvas');
@@ -811,10 +838,14 @@ function postGameRewardSingle(record){
               // fntA.player.src = 'img/player/g0.png';
               // ctx0.drawImage(fntA.player,20,-40,320,504);
               router.navigate('#/climer');
+              $(".connection").show();
+              $(".touch").hide();
             }
           }, 100);
         }else{
-          animate();
+          setTimeout(function () {
+            animate();
+          }, 600);
         }
       }else{
         if(fntA.ClimerOn && fntA.climerRecord==0 && !fntA.gameFinish){

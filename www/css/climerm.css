@@ -39,7 +39,7 @@ body {
 .levelbox { }
 .levelbox .intro { display: block; width: 320px; height: 251px; margin: 0 auto; background: url('../img/m/intro.png') center bottom no-repeat; background-size: 280px 223px;}
 .levelbox .text { display: block; width: 320px; height: 33px; margin: 0 auto; background: url('../img/m/intro-text.png') center top no-repeat; background-size: 304px 21px;}
-.levelbox .levelnav { width: 320px; height: 58px; margin: 19px auto 24px;background: url('../img/m/bg-power.png') center top no-repeat;background-size:260px 58px;}
+.levelbox .levelnav { width: 320px; height: 58px; margin: 19px auto 24px; background-size:260px 58px;}
 .levelbox .levelnav a { width: 320px; height: 58px;  margin: 0;}
 
 /*energybox*/
@@ -76,7 +76,8 @@ body {
 .getcoupon span { width: 87px; height: 86px; background: url('../img/s_btn_getcoupon.png') center center  no-repeat; background-size: 64px 11px; display: block;}
 .getmore span { width: 87px; height: 86px; background: url('../img/s_btn_getmore.png') center center  no-repeat; background-size: 53px 11px; display: block;}
 
-.recordbox { background: url('../img/s_ward_x2.png') no-repeat; background-size: 231px 257px;}
+.recordbox { background: url('../img/m/bg-lost.png') no-repeat; background-size: 231px 257px;}
+.recordwinbox { background-image:url('../img/m/bg-win.png');}
 .couponbox { background: url('../img/s_ward_01_x2.png') no-repeat;background-size: 231px 257px;}
 .nocouponbox { background: url('../img/s_ward_02_x2.png') no-repeat; background-size: 231px 257px;}
 .mi { color: #cc0000; font-weight: bold; font-size: 30px; padding: 58px 0 0 30px; width: 120px; text-align: right; }
@@ -87,8 +88,18 @@ body {
 .touchbox { display: block; width: 100%; height: 100%; margin: 0; position: absolute; top:0px; left:0px; z-index: 990; background:none;}
 .touchbox_l1 {display: none; }
 .touchbox_l2 {display: block; }
-.touchbox .connection { display: none; width: 100%; height: 100%; margin: 0; position: absolute; top:0px; left:0px;background:url(../img/m/connection.png) center top no-repeat;;background-size:270px 271px; cursor: pointer; }
-.touchbox .power {width: 260px; height: 58px; position: absolute; overflow: hidden; top: 267px; left: 50%; margin-left: -130px; background: url(../img/m/bg-power.png) center top no-repeat; padding: 20px 0 0 2px ;background-size:260px 58px;z-index: 1010;}
+.touchbox .connection { display: none; width: 100%; height: 100%; margin: 0; position: absolute; top:0px; left:0px;background:url(../img/m/connection.png) center 10px no-repeat;;background-size:270px 271px; cursor: pointer;z-index: 3000; }
+.touchbox .power {width: 260px; height: 31px; position: absolute; overflow: hidden; top: 267px; left: 50%; margin-left: -130px; background: url(../img/m/bg-power.png) center top no-repeat; padding: 20px 0 0 4px ;background-size:260px 58px;z-index: 1010;}
+.power canvas { width: 260px; height:29px; background: url(../img/m/bg-p-canvas.png) no-repeat; background-size:400px 120px;}
+.touchbox .light {width: 40px; height: 40px; position: absolute; overflow: hidden;top: 229px; margin-left: -20px; left: 50%; display: none;}
+  .touchbox .light span { width: 40px; height: 40px; background: url(../img/m/number.png) no-repeat; display: block; background-size:240px 40px;}
+    .touchbox .light span.lite5 { background-position: -400px 0}
+    .touchbox .light span.lite4 { background-position: -320px 0}
+    .touchbox .light span.lite3 { background-position: -240px 0}
+    .touchbox .light span.lite2 { background-position: -160px 0}
+    .touchbox .light span.lite1 { background-position: -80px 0}
+    .touchbox .light span.lite6 { background-position: 0 0}
+
 .touch { display: block; width: 100%; height: 100%; margin: 0; position: absolute; top:0px; left:0px; z-index: 1000; background:url(../img/m/bg-touch.gif);}
 .horizontal {display: none; width: 100%; height: 100%; min-height: 320px; background: #1b1b1b; opacity: 0.9; position: absolute; bottom: 0; left: 0; padding-top:0; z-index: 9999; color: #fff; font-size: 140%; line-height: 40px; text-align: center;}
 .horizontal .content { padding-top: 100px;}
