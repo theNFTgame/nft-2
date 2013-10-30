@@ -110,6 +110,8 @@ $(document).ready(function(){
       ctx0.drawImage(fntA.image0,-10,-436,360,912);
       fntA.player.src = 'img/player/g0.png';
       ctx0.drawImage(fntA.player,20,-40,320,504);
+      $(".connection").show();
+      $(".touch").hide();
     },
     replayfun : function(){
       delete fntA.gameOn;
@@ -263,7 +265,8 @@ $(document).ready(function(){
         showSubMask('gamemask','howplay');
       }
       if(num === 0) {
-        showSubMask('gamemask','connection');
+        showSubMask('touchbox','connection');
+        console.log('show btn')
       }
     }
     function countdownClimerTime(secs) {
@@ -404,6 +407,7 @@ $(document).ready(function(){
     }
     function animate() {
       // update
+      $('.power').show();
       var time = (new Date()).getTime() - startTime;
       var amplitude = 130;
 
@@ -719,17 +723,19 @@ $(document).ready(function(){
           console.log('enter');
           setTimeout(function () {
             if(!fntA.gameOn){
-              showSubFrame('runbox','rundivbox');
-              showFrame('runbox');
+              showSubFrame('runbox','runningbox');
               fntA.gameOn = true;
               countdownNewTime(2);
-              var canvas = document.getElementById('myCanvas');
-              var context = canvas.getContext('2d');
-              var mapcanvas =  document.getElementById('mapCanvas');
-              var ctx0 = mapcanvas.getContext('2d');
-              ctx0.drawImage(fntA.image0,-10,-436,360,912);
-              fntA.player.src = 'img/player/g0.png';
-              ctx0.drawImage(fntA.player,20,-40,320,504);
+              fntA.gameLevel = 1;
+              $('.power').hide();
+              // var canvas = document.getElementById('myCanvas');
+              // var context = canvas.getContext('2d');
+              // var mapcanvas =  document.getElementById('mapCanvas');
+              // var ctx0 = mapcanvas.getContext('2d');
+              // ctx0.drawImage(fntA.image0,-10,-436,360,912);
+              // fntA.player.src = 'img/player/g0.png';
+              // ctx0.drawImage(fntA.player,20,-40,320,504);
+              router.navigate('#/climer');
             }
           }, 100);
         }else{
@@ -772,6 +778,8 @@ $(document).ready(function(){
         clearTimeout();
         countdownClimerTime(6);
         animate();
+        $(".connection").hide();
+        $(".touch").show();
         fntA.ClimerOn = true;
       // }
     });
