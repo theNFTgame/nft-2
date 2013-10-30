@@ -70,14 +70,17 @@ $(document).ready(function(){
       //  console.log('mainfunc'); 
       var echoUid = $('.userinfo').attr('data-userid');
       var echoName = $('.userinfo').attr('data-username');
-      // console.log(echoUid);
-      if(echoUid !==''){
+      var echoAvatar = $('.userinfo').attr('data-avatar');
+      // console.log(echoUid + ',' + echoName);
+      if(echoUid != null){
         fntA.playerId = echoUid;
         fntA.playername = echoName;
+        fntA.playerAvatar = echoAvatar;
+        // console.log(fntA);
         //router.navigate('run');
-        $('.playerinfoa .playername').html(fntA.playerName);
-        $('.playerinfoa img').attr('src',fntA.playerAvatar);
-
+        $('.playerinfo .playername').html(fntA.playername);
+        $('.playerinfo img').attr('src',fntA.playerAvatar);
+        // console.log('fntA.playername:' + fntA.playername);
         showSubFrame('runbox','qrcodebox');
         // fntRun();
         if(!fntA.period){
@@ -237,13 +240,13 @@ $(document).ready(function(){
           return false;
         }
         //  console.log(jsdata);
-        fntA.playerName = jsdata.user_name;
+        fntA.playername = jsdata.user_name;
         fntA.playerId = jsdata.user_id;
         fntA.playerAvatar = 'http://tnf-avatar.b0.upaiyun.com/'+jsdata.user_avatar;
         router.navigate('run');
         showSubFrame('runbox','qrcodebox');
 
-        $('.playerinfoa .playername').html(fntA.playerName);
+        $('.playerinfoa .playername').html(fntA.playername);
         if(jsdata.user_avatar!==''){
           $('.playerinfoa img').attr('src',fntA.playerAvatar);
         }
@@ -296,10 +299,10 @@ $(document).ready(function(){
           return false;
         }
         //console.log('status='+ jsdata.result);
-        fntA.playerName = jsdata.user_name;
+        fntA.playername = jsdata.user_name;
         fntA.playerId = jsdata.user_id;
         fntA.playerAvatar = jsdata.user_avatar;
-        $('.playerinfoa .playername').html(fntA.playerName);
+        $('.playerinfoa .playername').html(fntA.playername);
         router.navigate('run');
         showSubFrame('runbox','qrcodebox');
         //console.log('mid='+ jsdata.data.mid );
@@ -496,7 +499,7 @@ $(document).ready(function(){
               fntA.climerRecord = 0;
               fntA.thisStpe = 'down';
               ClimerAnimate();
-              // postGameRecord(fntA.playerId,fntA.playerName,fntA.x,fntA.gameResult);
+              // postGameRecord(fntA.playerId,fntA.playername,fntA.x,fntA.gameResult);
             }
           }else{
             console.log('Your time is out.');
@@ -759,13 +762,13 @@ $(document).ready(function(){
             // showSubMask('gamemask','winwithpoint');
             fntA.gameResult = 'win';
           }
-          postGameRecord(fntA.playerId,fntA.playerName,fntA.allmoveA,fntA.gameResult);
+          postGameRecord(fntA.playerId,fntA.playername,fntA.allmoveA,fntA.gameResult);
           
         }else{
 
           if(nextStpe == 'down'){
             fntA.gameResult = 'lost';
-            postGameRecord(fntA.playerId,fntA.playerName,fntA.allmoveA,fntA.gameResult);
+            postGameRecord(fntA.playerId,fntA.playername,fntA.allmoveA,fntA.gameResult);
           }else if( nextStpe == 'ok'){
             // console.log('try for next stpe');
             fntA.defaultY = newY;
