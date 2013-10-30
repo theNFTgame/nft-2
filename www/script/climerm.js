@@ -188,6 +188,79 @@ $(document).ready(function(){
       }
     });
   }
+  function postGameRecordSingle(record){ 
+  /*
+  请先调用 game/save, 注意传入的game_type为1（单机游戏）和score，没有game_result。其它参数和双屏游戏相同。
+  然后在刮奖时调用  game/reward获得优惠券号码。
+
+  返回
+
+  失败：
+   {"result":"failed","message":"no game data found"}
+  成功：
+   {"result":"success","message":"","game_id":54,"user_id":"124578","user_name":"cgzhang2003","coupon_id":123,"coupon_code":xxx,"coupon_discount":null,"coupon_description":null}
+  ​
+  如果没有获奖则coupon_code为空。
+  */
+  if(!record){ var record = 'start';}
+  var postData = 'game_type=1&gamename=game2&score='+record ;
+  var tempIp = 'http://www.quyeba.com/event/explorerchallenge/';
+  console.log(postData);
+
+  $.ajax({type:'POST',url: tempIp +'game/save',data:postData,
+    success:function(json){
+        console.log(json);
+      //var jsdata = eval('('+json+')');  
+      var jsdata = json;
+        console.log('status='+ jsdata.status);
+      if(jsdata.result==='success'){
+        if (jsdata.game_id != null){
+          fntA.game_id = jsdata.game_id;
+        }
+      }
+
+      //console.log('mid='+ jsdata.data.mid );
+    },
+    error: function(xhr, type){
+      
+    }
+  });
+}
+//game/reward
+function postGameRewardSingle(record){ 
+  if(!record){ var record = 'lost';}
+  var postData = 'game_type=1&gamename=game2&score='+record + '&game_id=' + fntA.game_id;
+  var tempIp = 'http://www.quyeba.com/event/explorerchallenge/';
+  console.log(postData);
+
+  $.ajax({type:'POST',url: tempIp +'game/reward',data:postData,
+    success:function(json){
+        console.log(json);
+        $('.recordbox').show();
+        $('.maskbg').show();
+        $('.logo').hide();
+      //var jsdata = eval('('+json+')'); 
+      //result: "success" 
+      var jsdata = json;
+        console.log(jsdata);
+      if(jsdata.result==='success'){
+        if (jsdata.coupon_code !== ''){
+          $('.getcoupon').attr('href', '#/coupon');
+          $('.couponbox .cp').html(jsdata.coupon_code);
+        }else{
+          $('.getcoupon').attr('href', '#/nocoupon');
+        } 
+      }else{
+        $('.getcoupon').attr('href', '#/nocoupon');
+      }
+
+      //console.log('mid='+ jsdata.data.mid );
+    },
+    error: function(xhr, type){
+      $('.getcoupon').attr('href', '#/nocoupon');
+    }
+  });
+}
   function funMapload(){
     fntA.imgArr = [
       'img/map/map01.jpg'];
@@ -234,7 +307,7 @@ $(document).ready(function(){
     ctx0.drawImage(fntA.image0,-10,-436,360,912);
     fntA.player.src = 'img/player/g0.png';
     ctx0.drawImage(fntA.player,20,-40,320,504);
-    
+    postGameRecordSingle();
     var myRectangle = {
       x: fRandomBy(0,40),
       y: 3,
@@ -649,14 +722,16 @@ $(document).ready(function(){
           }else if(nextStpe == 'ok'){
             // showSubMask('gamemask','winwithpoint');
             fntA.gameResult = 'win';
+            
           }
-          postGameRecord(fntA.playerId,fntA.playerName,fntA.allmoveA,fntA.gameResult);
-          
+          // postGameRecord(fntA.playerId,fntA.playerName,fntA.allmoveA,fntA.gameResult);
+          postGameRewardSingle(fntA.gameResult);
         }else{
 
           if(nextStpe == 'down'){
             fntA.gameResult = 'lost';
-            postGameRecord(fntA.playerId,fntA.playerName,fntA.allmoveA,fntA.gameResult);
+            // postGameRecord(fntA.playerId,fntA.playerName,fntA.allmoveA,fntA.gameResult);
+            postGameRewardSingle(fntA.gameResult);
           }else if( nextStpe == 'ok'){
             // console.log('try for next stpe');
             fntA.defaultY = newY;
