@@ -767,7 +767,7 @@ function postGameRewardSingle(record){
             // console.log('try for next stpe');
             $('.touchbox').show();
             fntA.defaultY = newY;
-            $('#myCanvas').css('background-position','-'+ (144 - fntA.gameLevel*30) + 'px -90px');
+            $('#myCanvas').css('background-position','-'+ (144 - fntA.gameLevel*25) + 'px -90px');
             $('.gamenote span').removeClass().addClass('noten');
             fntA.gameLevel = fntA.gameLevel + 1;
             fntA.ClimerAniMove = fntA.ClimerAniStep;
@@ -804,24 +804,7 @@ function postGameRewardSingle(record){
         animate();
     }
     //debug;
-
-    $(".get").on("click", function(){
-        $("body").append('<p>' + fntA.x);
-      });
-    $(".clean").on("click", function(){
-        $("p").remove();
-      });
-    $(".stop").on("click", function(){
-        stopAnimation();
-        $("body").append('<p>' + fntA.x);
-      });
-    $(".pause").on("click", function(){
-        pauseAnimation();
-        $("body").append('<p>' + fntA.x);
-      });
-    $(".touch").on("click", function(){
-      stopAnimation();
-      console.log(fntA.x);
+    function referee() {
       if(fntA.gameLevel == 0){
         //check G
         var g = canvas.width/2;
@@ -890,6 +873,26 @@ function postGameRewardSingle(record){
             console.log('Your time is out.');
           }
       }
+    }
+    $(".get").on("click", function(){
+        $("body").append('<p>' + fntA.x);
+      });
+    $(".clean").on("click", function(){
+        $("p").remove();
+      });
+    $(".stop").on("click", function(){
+        stopAnimation();
+        $("body").append('<p>' + fntA.x);
+      });
+    $(".pause").on("click", function(){
+        pauseAnimation();
+        $("body").append('<p>' + fntA.x);
+      });
+    $(".touch").on("touchstart click", function(ev){
+      // var e = ev.originalEvent;
+      stopAnimation();
+      console.log(fntA.x);
+      referee();
     });
     $(".connection").on("click", function(){
       // if(!fntA.startime){
