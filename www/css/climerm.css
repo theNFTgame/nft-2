@@ -93,12 +93,12 @@ body {
 .power canvas { width: 260px; height:29px; background: url(../img/m/bg-p-canvas.png) no-repeat; background-size:400px 120px;}
 .touchbox .light {width: 40px; height: 40px; position: absolute; overflow: hidden;top: 229px; margin-left: -20px; left: 50%; display: none;}
   .touchbox .light span { width: 40px; height: 40px; background: url(../img/m/number.png) no-repeat; display: block; background-size:240px 40px;}
-    .touchbox .light span.lite5 { background-position: -400px 0}
-    .touchbox .light span.lite4 { background-position: -320px 0}
-    .touchbox .light span.lite3 { background-position: -240px 0}
-    .touchbox .light span.lite2 { background-position: -160px 0}
-    .touchbox .light span.lite1 { background-position: -80px 0}
-    .touchbox .light span.lite6 { background-position: 0 0}
+    .touchbox .light span.lite5 { background-position: -160px 0}
+    .touchbox .light span.lite4 { background-position: -120px 0}
+    .touchbox .light span.lite3 { background-position: -80px 0}
+    .touchbox .light span.lite2 { background-position: -40px 0}
+    .touchbox .light span.lite1 { background-position: 0 0}
+    .touchbox .light span.lite6 { background-position: -200px 0}
 
 .touch { display: block; width: 100%; height: 100%; margin: 0; position: absolute; top:0px; left:0px; z-index: 1000; background:url(../img/m/bg-touch.gif);}
 .horizontal {display: none; width: 100%; height: 100%; min-height: 320px; background: #1b1b1b; opacity: 0.9; position: absolute; bottom: 0; left: 0; padding-top:0; z-index: 9999; color: #fff; font-size: 140%; line-height: 40px; text-align: center;}

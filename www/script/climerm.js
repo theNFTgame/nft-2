@@ -87,10 +87,7 @@ $(document).ready(function(){
       showFrame('runbox');
       fntA.ClimerOn = false;
       fntA.TimerOn = false;
-      fntA.image0 = new Image();
-      fntA.image0.src = 'img/map/map01.jpg';
-      fntA.iconPower = new Image();
-      fntA.iconPower.src = 'img/icon_power.png';
+      
       fntA.gameLevel = 1;
       fntA.shakerecord = 0;
       fntA.ClimerAniStep = 60;
@@ -100,10 +97,13 @@ $(document).ready(function(){
       fntA.gameFinish =  false;
       fntA.climerRuning = false;
       fntA.period = 500; // icon speed
-      fntA.player = new Image();
-      fntA.player.src = 'img/player/g0.png';
       fntA.climerRecord = 0;
       fntA.ClimerAniAllMove = 0;
+      fntA.image0 = new Image();
+      fntA.image0.src = 'img/map/map01.jpg';
+      fntA.iconPower = new Image();
+      fntA.player = new Image();
+      fntA.iconPower.src = 'img/icon_power.png';
       var canvas = document.getElementById('myCanvas');
       var context = canvas.getContext('2d');
       var mapcanvas =  document.getElementById('mapCanvas');
@@ -111,7 +111,6 @@ $(document).ready(function(){
       ctx0.drawImage(fntA.image0,-10,-436,360,912);
       fntA.player.src = 'img/player/g0.png';
       ctx0.drawImage(fntA.player,20,-40,320,504);
-      
     },
     replayfun : function(){
       console.log('replay');
@@ -125,7 +124,13 @@ $(document).ready(function(){
       $('.recordbox').removeClass('recordwinbox').hide();
       $('.maskbg').hide();
       $('.mask').hide();
-      
+      var canvas = document.getElementById('myCanvas');
+      var context = canvas.getContext('2d');
+      var mapcanvas =  document.getElementById('mapCanvas');
+      var ctx0 = mapcanvas.getContext('2d');
+      ctx0.drawImage(fntA.image0,-10,-436,360,912);
+      fntA.player.src = 'img/player/g0.png';
+      ctx0.drawImage(fntA.player,20,-40,320,504);
       
       router.navigate('#/climer');
     },
@@ -496,7 +501,7 @@ function postGameRewardSingle(record){
       // context.lineWidth = myRectangle.borderWidth;
       // context.strokeStyle = 'blue';
       // context.stroke();
-      context.drawImage(fntA.iconPower,myRectangle.x,myRectangle.y,23,23);
+      context.drawImage(fntA.iconPower,myRectangle.x,myRectangle.y,23,30);
     }
     function animate() {
       // update
@@ -506,7 +511,7 @@ function postGameRewardSingle(record){
       }
       
       var time = (new Date()).getTime() - startTime;
-      var amplitude = 130;
+      var amplitude = 128;
 
       // in ms
       var period = fntA.period;
@@ -761,7 +766,7 @@ function postGameRewardSingle(record){
             // console.log('try for next stpe');
             $('.touchbox').show();
             fntA.defaultY = newY;
-            $('#myCanvas').css('background-position','0px -' + fntA.gameLevel*30 + 'px');
+            $('#myCanvas').css('background-position','-'+ (174 - fntA.gameLevel*30) + 'px -90px');
             $('.gamenote span').removeClass().addClass('noten');
             fntA.gameLevel = fntA.gameLevel + 1;
             fntA.ClimerAniMove = fntA.ClimerAniStep;
@@ -822,6 +827,7 @@ function postGameRewardSingle(record){
         console.log(fntA.x +',goal:' + g + ',canvas.width:'+ canvas.width);
         if(fntA.x< g) {
           console.log('enter');
+          $('#myCanvas').css('background-position','0px -60px');
           setTimeout(function () {
             if(!fntA.gameOn){
               showSubFrame('runbox','runningbox');
@@ -840,12 +846,15 @@ function postGameRewardSingle(record){
               router.navigate('#/climer');
               $(".connection").show();
               $(".touch").hide();
+              $('#myCanvas').css('background-position','-144px -90px');
             }
-          }, 100);
+          }, 1000);
         }else{
+          $('#myCanvas').css('background-position','0px -30px');
           setTimeout(function () {
             animate();
-          }, 600);
+            $('#myCanvas').css('background-position','0px 0px');
+          }, 1000);
         }
       }else{
         if(fntA.ClimerOn && fntA.climerRecord==0 && !fntA.gameFinish){
