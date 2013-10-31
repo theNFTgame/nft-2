@@ -767,7 +767,7 @@ function postGameRewardSingle(record){
             // console.log('try for next stpe');
             $('.touchbox').show();
             fntA.defaultY = newY;
-            $('#myCanvas').css('background-position','-'+ (174 - fntA.gameLevel*30) + 'px -90px');
+            $('#myCanvas').css('background-position','-'+ (144 - fntA.gameLevel*30) + 'px -90px');
             $('.gamenote span').removeClass().addClass('noten');
             fntA.gameLevel = fntA.gameLevel + 1;
             fntA.ClimerAniMove = fntA.ClimerAniStep;

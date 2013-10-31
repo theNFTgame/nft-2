@@ -112,3 +112,14 @@ body {
   .horizontal { display: block; position: relative; width: 400px; margin: 0 auto;}
   #pagebody { display: none;}
 }
+.theclimer { display: block; width: 0; height: 0; overflow: hidden;
+  background: 
+      url(../img/player/g1_ok.png) , 
+      url(../img/player/g2_ok.png),
+      url(../img/player/g3_ok.png),
+      url(../img/player/g4_ok.png),
+      url(../img/player/g5_ok.png),
+      url(../img/player/down.png),
+      url(../img/player/g0.png),
+      url(../img/icon_power.png);
+}
