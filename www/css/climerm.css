@@ -90,7 +90,7 @@ body {
 .touchbox_l2 {display: block; }
 .touchbox .connection { display: none; width: 100%; height: 100%; margin: 0; position: absolute; top:0px; left:0px;background:url(../img/m/connection.png) center 10px no-repeat;;background-size:270px 271px; cursor: pointer;z-index: 3000; }
 .touchbox .power {width: 260px; height: 31px; position: absolute; overflow: hidden; top: 267px; left: 50%; margin-left: -130px; background: url(../img/m/bg-power.png) center top no-repeat; padding: 20px 0 0 4px ;background-size:260px 58px;z-index: 1010;}
-.power canvas { width: 260px; height:29px; background: url(../img/m/bg-p-canvas.png) no-repeat; background-size:400px 120px;}
+.power canvas { width: 256px; height:29px; background: url(../img/m/bg-p-canvas.png) no-repeat; background-size:400px 120px;}
 .touchbox .light {width: 40px; height: 40px; position: absolute; overflow: hidden;top: 229px; margin-left: -20px; left: 50%; display: none;}
   .touchbox .light span { width: 40px; height: 40px; background: url(../img/m/number.png) no-repeat; display: block; background-size:240px 40px;}
     .touchbox .light span.lite5 { background-position: -160px 0}

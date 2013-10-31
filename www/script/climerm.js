@@ -124,6 +124,7 @@ $(document).ready(function(){
       $('.recordbox').removeClass('recordwinbox').hide();
       $('.maskbg').hide();
       $('.mask').hide();
+      $('#myCanvas').css('background-position','-144px -90px');
       var canvas = document.getElementById('myCanvas');
       var context = canvas.getContext('2d');
       var mapcanvas =  document.getElementById('mapCanvas');
@@ -511,7 +512,7 @@ function postGameRewardSingle(record){
       }
       
       var time = (new Date()).getTime() - startTime;
-      var amplitude = 128;
+      var amplitude = 130;
 
       // in ms
       var period = fntA.period;
@@ -863,23 +864,27 @@ function postGameRewardSingle(record){
             console.log(fntA.x +',goal:' + g + ',canvas.width:'+ canvas.width);
             // fntA.gameLevel 
             if(fntA.x< g) {
-              console.log('You win this step!');
-              if(fntA.gameLevel<5){
-                // $('#myCanvas').css('background-position','0px -' + fntA.gameLevel*30 + 'px');
-                $('.gamenote span').removeClass().addClass('notes');
-              }
-              fntA.shakerecord = fntA.x;
-              fntA.climerRecord = 0;
-              fntA.thisStpe = 'ok';
-              ClimerAnimate();
-              // fntA.gameLevel = fntA.gameLevel + 1;
+              setTimeout(function () {
+                console.log('You win this step!');
+                if(fntA.gameLevel<5){
+                  // $('#myCanvas').css('background-position','0px -' + fntA.gameLevel*30 + 'px');
+                  $('.gamenote span').removeClass().addClass('notes');
+                }
+                fntA.shakerecord = fntA.x;
+                fntA.climerRecord = 0;
+                fntA.thisStpe = 'ok';
+                ClimerAnimate();
+                // fntA.gameLevel = fntA.gameLevel + 1;
+              }, 1000);
             }else{
-              console.log('You lost!');
-              fntA.shakerecord = 0;
-              fntA.climerRecord = 0;
-              fntA.thisStpe = 'down';
-              ClimerAnimate();
-              // postGameRecord(fntA.playerId,fntA.playerName,fntA.x,fntA.gameResult);
+              setTimeout(function () {
+                console.log('You lost!');
+                fntA.shakerecord = 0;
+                fntA.climerRecord = 0;
+                fntA.thisStpe = 'down';
+                ClimerAnimate();
+                // postGameRecord(fntA.playerId,fntA.playerName,fntA.x,fntA.gameResult);
+              }, 1000);
             }
           }else{
             console.log('Your time is out.');
