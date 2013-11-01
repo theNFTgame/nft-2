@@ -353,15 +353,9 @@ function postGameRewardSingle(record){
     }
     function doUpdateTime(num) {
       //console.log('now countdown number is :' + num);
-      if( num == 4 || num == 5 || num >= 6 || num == 3 ){
-        showSubMask('gamemask','howplay');
-        $('.gamemask .countdown').html('');
-      }
-      if( num == 1 || num == 2 ){
+      if( num == 4 || num == 5 || num >= 6 || num == 3 || num == 1 || num == 2 || num == 0){
         // showSubMask('gamemask','connection');
         showSubMask('gamemask','howplay');
-      }
-      if(num === 0) {
         showSubMask('touchbox','connection');
         $('.power').show();
         $('.light').show();
@@ -810,7 +804,7 @@ function postGameRewardSingle(record){
         var g = canvas.width/2;
         console.log(fntA.x +',goal:' + g + ',canvas.width:'+ canvas.width);
         if(fntA.x< g) {
-          console.log('enter');
+          console.log('enter game');
           $('#myCanvas').css('background-position','0px -60px');
           setTimeout(function () {
             if(!fntA.gameOn){
@@ -818,8 +812,8 @@ function postGameRewardSingle(record){
               fntA.gameOn = true;
               countdownNewTime(2);
               fntA.gameLevel = 1;
-              $('.power').hide();
-              $('.light').hide();
+              // $('.power').hide();
+              // $('.light').hide();
               // var canvas = document.getElementById('myCanvas');
               // var context = canvas.getContext('2d');
               // var mapcanvas =  document.getElementById('mapCanvas');
