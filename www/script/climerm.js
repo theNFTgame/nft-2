@@ -815,6 +815,7 @@ function postGameRewardSingle(record){
     }
     //debug;
     function referee() {
+      stopAnimation();
       if(fntA.gameLevel == 0){
         //check G
         var g = canvas.width/2;
@@ -826,7 +827,7 @@ function postGameRewardSingle(record){
             if(!fntA.gameOn){
               showSubFrame('runbox','runningbox');
               fntA.gameOn = true;
-              countdownNewTime(2);
+              // countdownNewTime(2);
               fntA.gameLevel = 1;
               // $('.power').hide();
               // $('.light').hide();
@@ -841,14 +842,20 @@ function postGameRewardSingle(record){
               $(".connection").show();
               $(".touch").hide();
               $('#myCanvas').css('background-position','-144px -90px');
+              showSubMask('gamemask','howplay');
+              showSubMask('touchbox','connection');
+              $('.power').show();
+              $('.light').show();
+              console.log('show btn')
             }
-          }, 200);
+          }, 1200);
         }else{
           $('#myCanvas').css('background-position','0px -30px');
           setTimeout(function () {
             animate();
             $('#myCanvas').css('background-position','0px 0px');
-          }, 200);
+            $(".touch").show();
+          }, 600);
         }
       }else{
         if(fntA.ClimerOn && fntA.climerRecord==0 && !fntA.gameFinish){
@@ -899,9 +906,9 @@ function postGameRewardSingle(record){
         pauseAnimation();
         $("body").append('<p>' + fntA.x);
       });
-    $(".touch").on("touchstart click", function(ev){
+    $(".touch").on("touchstart", function(ev){
       // var e = ev.originalEvent;
-      stopAnimation();
+      $(".touch").hide();
       console.log(fntA.x);
       referee();
     });
