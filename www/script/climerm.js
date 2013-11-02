@@ -774,6 +774,7 @@ function postGameRewardSingle(record){
           }else if( nextStpe == 'ok'){
             // console.log('try for next stpe');
             $('.touchbox').show();
+            $(".touch").show();
             fntA.defaultY = newY;
             myRectangle.x = 0;
             context.clearRect(0, 0, 300, 60);
