@@ -328,7 +328,7 @@ function postGameRewardSingle(record){
     fntA.StepStarted = false;
     fntA.gameFinish =  false;
     fntA.climerRuning = false;
-    fntA.period = 500; // icon speed
+    fntA.period = 450 + fRandomBy(0,100); // icon speed
     fntA.player = new Image();
     fntA.player.src = 'img/player/g0.png';
     fntA.climerRecord = 0;
@@ -406,7 +406,9 @@ function postGameRewardSingle(record){
           // fntA.ClimerOn = false;
           fntA.TimerOn = false;
           console.log( 'fntA.StepStarted :'+ fntA.StepStarted + ', fntA.gameFinish: ' + fntA.gameFinish  + ',fntA.climerRecord:' + fntA.climerRecord + ',fntA.climerRuning:' + fntA.climerRuning + ',fntA.gameResult:' + fntA.gameResult);
-          if((!fntA.StepStarted || !fntA.gameFinish) && fntA.climerRecord == 0 && !fntA.climerRuning && fntA.gameResult !=='lost'){
+          // if((!fntA.StepStarted || !fntA.gameFinish) && fntA.climerRecord == 0 && !fntA.climerRuning && fntA.gameResult !=='lost'){
+          // fntA.climerRecord:0,fntA.climerRuning:false
+          if(fntA.gameLevel >1 && fntA.climerRecord==0 && !fntA.climerRuning && !fntA.gameFinish ){
             console.log( 'level 2~5 doUpdateClimerTime call down' );
             fntA.thisStpe = 'down';
             ClimerAnimate();
@@ -776,7 +778,8 @@ function postGameRewardSingle(record){
             $('.touchbox').show();
             $(".touch").show();
             fntA.defaultY = newY;
-            myRectangle.x = 0;
+            myRectangle.x = fRandomBy(0,200);
+            fntA.period = 450 + fRandomBy(0,100);
             context.clearRect(0, 0, 300, 60);
             $('#myCanvas').css('background-position','-'+ (144 - fntA.gameLevel*25) + 'px -90px');
             $('.gamenote span').removeClass().addClass('noten');
