@@ -780,7 +780,11 @@ function postGameRewardSingle(record){
             fntA.defaultY = newY;
             myRectangle.x = fRandomBy(0,240);
             fntA.period = 400 + fRandomBy(50,140);
-            context.clearRect(0, 0, 300, 60);
+
+            if (/Android/.test(navigator.userAgent)) {
+              context.clearRect(0, 0, 300, 60);
+            }
+            
             $('#myCanvas').css('background-position','-'+ (144 - fntA.gameLevel*25) + 'px -90px');
             $('.gamenote span').removeClass().addClass('noten');
             fntA.gameLevel = fntA.gameLevel + 1;
@@ -806,8 +810,10 @@ function postGameRewardSingle(record){
     // animate(myRectangle, canvas, context, startTime);
     function stopAnimation(e) {
         // use the requestID to cancel the requestAnimationFrame call
-        context.drawImage(fntA.iconPower,400,400,23,30);
-        context.clearRect(0, 0, 300, 60);
+        if (/Android/.test(navigator.userAgent)) {
+          context.clearRect(0, 0, 300, 60);
+          context.drawImage(fntA.iconPower,400,400,23,30);
+        }
         cancelRAF(fntA.requestId);
     }
     function stopAnimationClimer(e) {
@@ -817,6 +823,10 @@ function postGameRewardSingle(record){
     function pauseAnimation(e) {
         // use the requestID to cancel the requestAnimationFrame call
         fntA.gameLevel = 0;
+        if (/Android/.test(navigator.userAgent)) {
+          context.clearRect(0, 0, 300, 60);
+          context.drawImage(fntA.iconPower,400,400,23,30);
+        }
         animate();
     }
     //debug;
