@@ -344,7 +344,7 @@ function postGameRewardSingle(record){
     ctx0.drawImage(fntA.player,20,-40,320,504);
     postGameRecordSingle();
     var myRectangle = {
-      x: fRandomBy(0,40),
+      x: 400,
       y: 3,
       width: 20,
       height: 50,
@@ -528,7 +528,7 @@ function postGameRewardSingle(record){
 
       myRectangle.x = nextX;
       fntA.x = canvas.width - nextX;
-
+      
       // clear
       context.clearRect(0, 0, 300, 60);
 
@@ -778,8 +778,8 @@ function postGameRewardSingle(record){
             $('.touchbox').show();
             $(".touch").show();
             fntA.defaultY = newY;
-            myRectangle.x = fRandomBy(0,200);
-            fntA.period = 450 + fRandomBy(0,100);
+            myRectangle.x = fRandomBy(0,240);
+            fntA.period = 400 + fRandomBy(50,140);
             context.clearRect(0, 0, 300, 60);
             $('#myCanvas').css('background-position','-'+ (144 - fntA.gameLevel*25) + 'px -90px');
             $('.gamenote span').removeClass().addClass('noten');
@@ -806,6 +806,8 @@ function postGameRewardSingle(record){
     // animate(myRectangle, canvas, context, startTime);
     function stopAnimation(e) {
         // use the requestID to cancel the requestAnimationFrame call
+        context.drawImage(fntA.iconPower,400,400,23,30);
+        context.clearRect(0, 0, 300, 60);
         cancelRAF(fntA.requestId);
     }
     function stopAnimationClimer(e) {
