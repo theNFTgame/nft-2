@@ -527,6 +527,14 @@ function postGameRewardSingle(record){
       var nextX = amplitude * Math.sin(time * 2 * Math.PI / period) + centerX;
 
       myRectangle.x = nextX;
+      if (/Android/.test(navigator.userAgent)) {
+        var updateTime = fntA.UpdatePowerTime;
+        if(updateTime !=fntA.UpdatePowerTime){
+          myRectangle.y = 60;
+        }else{
+          myRectangle.y = 3;
+        }
+      }
       fntA.x = canvas.width - nextX;
       
       // clear
@@ -782,7 +790,18 @@ function postGameRewardSingle(record){
             fntA.period = 400 + fRandomBy(50,140);
 
             if (/Android/.test(navigator.userAgent)) {
+              $('#myCanvas').remove();
+              var canvasDiv = document.getElementById('canvasDiv');
+              var canvast = document.createElement('canvas');
+              canvast.setAttribute('width', 256);
+              canvast.setAttribute('height', 39);
+              canvast.setAttribute('id', 'myCanvas');
+              canvasDiv.appendChild(canvast);
+              canvas = document.getElementById('myCanvas');
+              context = canvas.getContext("2d");
               context.clearRect(0, 0, 300, 60);
+              context.drawImage(fntA.iconPower,400,400,23,30);
+              fntA.UpdatePowerTime = (new Date()).getTime();
             }
             
             $('#myCanvas').css('background-position','-'+ (144 - fntA.gameLevel*25) + 'px -90px');
@@ -824,8 +843,18 @@ function postGameRewardSingle(record){
         // use the requestID to cancel the requestAnimationFrame call
         fntA.gameLevel = 0;
         if (/Android/.test(navigator.userAgent)) {
+          $('#myCanvas').remove();
+          var canvasDiv = document.getElementById('canvasDiv');
+          var canvast = document.createElement('canvas');
+          canvast.setAttribute('width', 256);
+          canvast.setAttribute('height', 39);
+          canvast.setAttribute('id', 'myCanvas');
+          canvasDiv.appendChild(canvast);
+          canvas = document.getElementById('myCanvas');
+          context = canvas.getContext("2d");
           context.clearRect(0, 0, 300, 60);
           context.drawImage(fntA.iconPower,400,400,23,30);
+          fntA.UpdatePowerTime = (new Date()).getTime();
         }
         animate();
     }
@@ -868,6 +897,19 @@ function postGameRewardSingle(record){
         }else{
           $('#myCanvas').css('background-position','0px -30px');
           setTimeout(function () {
+            if (/Android/.test(navigator.userAgent)) {
+              $('#myCanvas').remove();
+              var canvasDiv = document.getElementById('canvasDiv');
+              var canvast = document.createElement('canvas');
+              canvast.setAttribute('width', 256);
+              canvast.setAttribute('height', 39);
+              canvast.setAttribute('id', 'myCanvas');
+              canvasDiv.appendChild(canvast);
+              canvas = document.getElementById('myCanvas');
+              context = canvas.getContext("2d");
+              context.drawImage(fntA.iconPower,400,400,23,30);
+              fntA.UpdatePowerTime = (new Date()).getTime();
+            }
             animate();
             $('#myCanvas').css('background-position','0px 0px');
             $(".touch").show();
@@ -946,6 +988,7 @@ function postGameRewardSingle(record){
         // $('.gamemask .countdown').html();
         clearTimeout();
         countdownClimerTime(6);
+        
         animate();
         $(".connection").hide();
         $(".touch").show();
