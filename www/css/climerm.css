@@ -112,6 +112,7 @@ body {
   .horizontal { display: block; position: relative; width: 400px; margin: 0 auto;}
   #pagebody { display: none;}
 }
+#powericon { display: block; width: 23px; height: 23px; background: url(../img/icon_power.png) no-repeat; position: absolute; top: 23px; left: 0px; z-index: 20;}
 .theclimer { display: block; width: 0; height: 0; overflow: hidden;
   background: 
       url(../img/player/g1_ok.png) , 
@@ -123,3 +124,4 @@ body {
       url(../img/player/g0.png),
       url(../img/icon_power.png);
 }
+
