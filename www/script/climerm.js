@@ -71,7 +71,7 @@ $(document).ready(function(){
         'coupon':'couponfun',
         'nocoupon':'nocouponfun',
         'more':'morefun',
-        '*error' : 'renderError'  
+        '*error' : 'levelfun'  
     },
     levelfun : function() {
       console.log('mainfunc'); 
