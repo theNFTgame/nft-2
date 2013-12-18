@@ -64,7 +64,7 @@ $(document).ready(function(){
       'reg' : 'regfunc',
       'run':'runfunc',
       'run/:action':'runfunc',
-      '*error' : 'renderError'  
+      '*error' : 'mainfunc'  
     },
     mainfunc : function() {
       //  console.log('mainfunc'); 
